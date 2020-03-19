@@ -2,7 +2,7 @@
 
 ## Table of contents
 
-- [Related work]()
+- Related work
 
 ---
 
