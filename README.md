@@ -11,7 +11,7 @@
 
 - Deep contextualized word representations(Mar 2018)｜[pdf](https://arxiv.org/abs/1802.05365v2)
 - Universal Language Model Fine-tuning for Text Classification(May 2018)｜[pdf](https://arxiv.org/abs/1801.06146v5)
-- BERT: Pre-training of Deep Bidirectional Transformers forLanguage Understanding(May 2019)｜[pdf](https://arxiv.org/abs/1810.04805)
+- BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding(May 2019)｜[pdf](https://arxiv.org/abs/1810.04805)
 
 
 ### Image captioning
