@@ -3,7 +3,9 @@
 ## Table of contents
 
 - Related work
-
+  - Image captioning
+  - Natural Language Processing
+  
 ---
 
 ## Related work
