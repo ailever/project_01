@@ -502,15 +502,15 @@ def captioning(image_url):
 # args.url : https://www.wikiart.org/
 
 # https://www.wikiart.org/en/edouard-manet/fishing
-captioning(input_url="https://uploads1.wikiart.org/images/edouard-manet/fishing.jpg")
+captioning(image_url="https://uploads1.wikiart.org/images/edouard-manet/fishing.jpg")
 # https://www.wikiart.org/en/frederic-bazille/village-street
-captioning(input_url="input_url=https://uploads2.wikiart.org/images/frederic-bazille/village-street.jpg")
+captioning(image_url="input_url=https://uploads2.wikiart.org/images/frederic-bazille/village-street.jpg")
 # https://www.wikiart.org/en/claude-monet/wooded-path-1865
-captioning(input_url="https://uploads0.wikiart.org/images/claude-monet/wooded-path-1865.jpg")
+captioning(image_url="https://uploads0.wikiart.org/images/claude-monet/wooded-path-1865.jpg")
 # https://www.wikiart.org/en/pierre-auguste-renoir/flowers-in-a-vase
-captioning(input_url="https://uploads1.wikiart.org/images/pierre-auguste-renoir/flowers-in-a-vase.jpg")
+captioning(image_url="https://uploads1.wikiart.org/images/pierre-auguste-renoir/flowers-in-a-vase.jpg")
 # https://www.wikiart.org/en/claude-monet/fishing-boats-calm-sea
-captioning(input_url="https://uploads6.wikiart.org/images/claude-monet/fishing-boats-calm-sea.jpg")
+captioning(image_url="https://uploads6.wikiart.org/images/claude-monet/fishing-boats-calm-sea.jpg")
 # https://www.wikiart.org/en/claude-monet/red-mullets
-captioning(input_url="https://uploads4.wikiart.org/images/claude-monet/red-mullets.jpg")
+captioning(image_url="https://uploads4.wikiart.org/images/claude-monet/red-mullets.jpg")
 
