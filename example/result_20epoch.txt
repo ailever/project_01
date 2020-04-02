@@ -1,0 +1,146 @@
+Epoch 1 Batch 0 Loss 2.0832
+Epoch 1 Batch 100 Loss 1.0382
+Epoch 1 Batch 200 Loss 0.8670
+Epoch 1 Batch 300 Loss 0.9142
+Epoch 1 Loss 1.032690
+Time taken for 1 epoch 174.85785698890686 sec
+
+Epoch 2 Batch 0 Loss 0.8211
+Epoch 2 Batch 100 Loss 0.8341
+Epoch 2 Batch 200 Loss 0.7674
+Epoch 2 Batch 300 Loss 0.7889
+Epoch 2 Loss 0.787676
+Time taken for 1 epoch 70.28248620033264 sec
+
+Epoch 3 Batch 0 Loss 0.7448
+Epoch 3 Batch 100 Loss 0.7133
+Epoch 3 Batch 200 Loss 0.6572
+Epoch 3 Batch 300 Loss 0.7168
+Epoch 3 Loss 0.720350
+Time taken for 1 epoch 69.00693130493164 sec
+
+Epoch 4 Batch 0 Loss 0.7298
+Epoch 4 Batch 100 Loss 0.7182
+Epoch 4 Batch 200 Loss 0.6272
+Epoch 4 Batch 300 Loss 0.6278
+Epoch 4 Loss 0.676022
+Time taken for 1 epoch 69.71565651893616 sec
+
+Epoch 5 Batch 0 Loss 0.6985
+Epoch 5 Batch 100 Loss 0.6882
+Epoch 5 Batch 200 Loss 0.6032
+Epoch 5 Batch 300 Loss 0.5653
+Epoch 5 Loss 0.641199
+Time taken for 1 epoch 70.02044749259949 sec
+
+Epoch 6 Batch 0 Loss 0.6731
+Epoch 6 Batch 100 Loss 0.5899
+Epoch 6 Batch 200 Loss 0.6313
+Epoch 6 Batch 300 Loss 0.5866
+Epoch 6 Loss 0.611243
+Time taken for 1 epoch 68.14423418045044 sec
+
+Epoch 7 Batch 0 Loss 0.6308
+Epoch 7 Batch 100 Loss 0.6180
+Epoch 7 Batch 200 Loss 0.5818
+Epoch 7 Batch 300 Loss 0.5491
+Epoch 7 Loss 0.582217
+Time taken for 1 epoch 69.12394571304321 sec
+
+Epoch 8 Batch 0 Loss 0.5559
+Epoch 8 Batch 100 Loss 0.5599
+Epoch 8 Batch 200 Loss 0.5335
+Epoch 8 Batch 300 Loss 0.5568
+Epoch 8 Loss 0.554432
+Time taken for 1 epoch 69.14611911773682 sec
+
+Epoch 9 Batch 0 Loss 0.5625
+Epoch 9 Batch 100 Loss 0.5630
+Epoch 9 Batch 200 Loss 0.4994
+Epoch 9 Batch 300 Loss 0.5194
+Epoch 9 Loss 0.525714
+Time taken for 1 epoch 70.40778923034668 sec
+
+Epoch 10 Batch 0 Loss 0.5184
+Epoch 10 Batch 100 Loss 0.4945
+Epoch 10 Batch 200 Loss 0.4752
+Epoch 10 Batch 300 Loss 0.5680
+Epoch 10 Loss 0.504979
+Time taken for 1 epoch 67.94381666183472 sec
+
+Epoch 11 Batch 0 Loss 0.4746
+Epoch 11 Batch 100 Loss 0.4710
+Epoch 11 Batch 200 Loss 0.4903
+Epoch 11 Batch 300 Loss 0.4745
+Epoch 11 Loss 0.476538
+Time taken for 1 epoch 68.46227192878723 sec
+
+Epoch 12 Batch 0 Loss 0.4660
+Epoch 12 Batch 100 Loss 0.4544
+Epoch 12 Batch 200 Loss 0.5076
+Epoch 12 Batch 300 Loss 0.4351
+Epoch 12 Loss 0.448343
+Time taken for 1 epoch 69.69226384162903 sec
+
+Epoch 13 Batch 0 Loss 0.4095
+Epoch 13 Batch 100 Loss 0.4019
+Epoch 13 Batch 200 Loss 0.4773
+Epoch 13 Batch 300 Loss 0.4053
+Epoch 13 Loss 0.423066
+Time taken for 1 epoch 68.23359274864197 sec
+
+Epoch 14 Batch 0 Loss 0.3823
+Epoch 14 Batch 100 Loss 0.4802
+Epoch 14 Batch 200 Loss 0.3787
+Epoch 14 Batch 300 Loss 0.3916
+Epoch 14 Loss 0.398983
+Time taken for 1 epoch 70.88829517364502 sec
+
+Epoch 15 Batch 0 Loss 0.4139
+Epoch 15 Batch 100 Loss 0.4240
+Epoch 15 Batch 200 Loss 0.3523
+Epoch 15 Batch 300 Loss 0.3823
+Epoch 15 Loss 0.384206
+Time taken for 1 epoch 69.09808087348938 sec
+
+Epoch 16 Batch 0 Loss 0.3925
+Epoch 16 Batch 100 Loss 0.3423
+Epoch 16 Batch 200 Loss 0.3294
+Epoch 16 Batch 300 Loss 0.3531
+Epoch 16 Loss 0.356462
+Time taken for 1 epoch 69.63626885414124 sec
+
+Epoch 17 Batch 0 Loss 0.3525
+Epoch 17 Batch 100 Loss 0.3189
+Epoch 17 Batch 200 Loss 0.3493
+Epoch 17 Batch 300 Loss 0.3290
+Epoch 17 Loss 0.331593
+Time taken for 1 epoch 72.09795427322388 sec
+
+Epoch 18 Batch 0 Loss 0.2922
+Epoch 18 Batch 100 Loss 0.3354
+Epoch 18 Batch 200 Loss 0.3020
+Epoch 18 Batch 300 Loss 0.3191
+Epoch 18 Loss 0.312791
+Time taken for 1 epoch 69.88189220428467 sec
+
+Epoch 19 Batch 0 Loss 0.3118
+Epoch 19 Batch 100 Loss 0.2966
+Epoch 19 Batch 200 Loss 0.2753
+Epoch 19 Batch 300 Loss 0.3071
+Epoch 19 Loss 0.292694
+Time taken for 1 epoch 68.75708341598511 sec
+
+Epoch 20 Batch 0 Loss 0.3035
+Epoch 20 Batch 100 Loss 0.2890
+Epoch 20 Batch 200 Loss 0.2987
+Epoch 20 Batch 300 Loss 0.2728
+Epoch 20 Loss 0.276362
+Time taken for 1 epoch 68.77589702606201 sec
+
+Real Caption: <start> the woman holding a frisbee is drawing in the sand <end>
+Prediction Caption: a man reads at a frisbee <end>
+Downloading data from https://tensorflow.org/images/surf.jpg
+65536/64400 [==============================] - 0s 2us/step
+Prediction Caption: surfer riding a surf board as he goes over riding a surfboard <end>
+
