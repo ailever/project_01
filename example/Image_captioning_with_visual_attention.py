@@ -472,7 +472,7 @@ result, attention_plot = evaluate(image)
 
 print ('Real Caption:', real_caption)
 print ('Prediction Caption:', ' '.join(result))
-plot_attention(image, result, attention_plot)
+plot_attention(image, result, attention_plot, "name")
 
 
 
