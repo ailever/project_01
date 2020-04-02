@@ -482,13 +482,18 @@ plot_attention(image, result, attention_plot, "name")
 """  Try it on your own images   """
 """"""""""""""""""""""""""""""""""""
 
-def captioning(image_url='https://tensorflow.org/images/surf.jpg'):
+def captioning(image_url):
     image_extension = image_url[-4:];  image_name = image_url[-10:-4]
     image_path = tf.keras.utils.get_file('image'+image_extension,
                                      origin=image_url)
 
     result, attention_plot = evaluate(image_path)
-    print ('Prediction Caption:', ' '.join(result))
+    print ('Prediction Caption({}):'.format(image_name), ' '.join(result))
+    with open('result_for_{}.txt'.format(image_name), 'w') as f:
+        f.write('prediction caption({}): '.format(image_name))
+        f.write(' '.join(result))
+        f.write('\n')
+
     plot_attention(image_path, result, attention_plot, image_name)
     # opening the image
     image = Image.open(image_path)
@@ -497,15 +502,15 @@ def captioning(image_url='https://tensorflow.org/images/surf.jpg'):
 # args.url : https://www.wikiart.org/
 
 # https://www.wikiart.org/en/edouard-manet/fishing
-captioning("https://uploads1.wikiart.org/images/edouard-manet/fishing.jpg")
+captioning(input_url="https://uploads1.wikiart.org/images/edouard-manet/fishing.jpg")
 # https://www.wikiart.org/en/frederic-bazille/village-street
-captioning("https://uploads2.wikiart.org/images/frederic-bazille/village-street.jpg")
+captioning(input_url="input_url=https://uploads2.wikiart.org/images/frederic-bazille/village-street.jpg")
 # https://www.wikiart.org/en/claude-monet/wooded-path-1865
-captioning("https://uploads0.wikiart.org/images/claude-monet/wooded-path-1865.jpg")
+captioning(input_url="https://uploads0.wikiart.org/images/claude-monet/wooded-path-1865.jpg")
 # https://www.wikiart.org/en/pierre-auguste-renoir/flowers-in-a-vase
-captioning("https://uploads1.wikiart.org/images/pierre-auguste-renoir/flowers-in-a-vase.jpg")
+captioning(input_url="https://uploads1.wikiart.org/images/pierre-auguste-renoir/flowers-in-a-vase.jpg")
 # https://www.wikiart.org/en/claude-monet/fishing-boats-calm-sea
-captioning("https://uploads6.wikiart.org/images/claude-monet/fishing-boats-calm-sea.jpg")
+captioning(input_url="https://uploads6.wikiart.org/images/claude-monet/fishing-boats-calm-sea.jpg")
 # https://www.wikiart.org/en/claude-monet/red-mullets
-captioning("https://uploads4.wikiart.org/images/claude-monet/red-mullets.jpg")
+captioning(input_url="https://uploads4.wikiart.org/images/claude-monet/red-mullets.jpg")
 
