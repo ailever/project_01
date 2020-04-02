@@ -397,7 +397,7 @@ for epoch in range(start_epoch, EPOCHS):
     loss_plot.append(total_loss / num_steps)
 
     if epoch % 5 == 0:
-      ckpt_manager.save()
+        ckpt_manager.save()
 
     print ('Epoch {} Loss {:.6f}'.format(epoch + 1,
                                          total_loss/num_steps))
@@ -447,7 +447,7 @@ def evaluate(image):
     attention_plot = attention_plot[:len(result), :]
     return result, attention_plot
 
-def plot_attention(image, result, attention_plot):
+def plot_attention(image, result, attention_plot, name):
     temp_image = np.array(Image.open(image))
 
     fig = plt.figure(figsize=(10, 10))
@@ -461,7 +461,7 @@ def plot_attention(image, result, attention_plot):
         ax.imshow(temp_att, cmap='gray', alpha=0.6, extent=img.get_extent())
 
     plt.tight_layout()
-    plt.savefig('plot_attention.png')
+    plt.savefig('plot_attention_{}.png'.format(name))
     plt.show()
 
 # captions on the validation set
@@ -482,27 +482,30 @@ plot_attention(image, result, attention_plot)
 """  Try it on your own images   """
 """"""""""""""""""""""""""""""""""""
 
-image_url = 'https://tensorflow.org/images/surf.jpg'
-image_extension = image_url[-4:]
-image_path = tf.keras.utils.get_file('image'+image_extension,
+def captioning(image_url='https://tensorflow.org/images/surf.jpg'):
+    image_extension = image_url[-4:];  image_name = image_url[-10:-4]
+    image_path = tf.keras.utils.get_file('image'+image_extension,
                                      origin=image_url)
 
-result, attention_plot = evaluate(image_path)
-print ('Prediction Caption:', ' '.join(result))
-plot_attention(image_path, result, attention_plot)
-# opening the image
-Image.open(image_path)
+    result, attention_plot = evaluate(image_path)
+    print ('Prediction Caption:', ' '.join(result))
+    plot_attention(image_path, result, attention_plot, image_name)
+    # opening the image
+    image = Image.open(image_path)
+    image.save('input_img_{}.png'.format(image_name), format='PNG') 
 
+# args.url : https://www.wikiart.org/
 
-
-
-
-
-
-
-
-
-
-
-
+# https://www.wikiart.org/en/edouard-manet/fishing
+captioning("https://uploads1.wikiart.org/images/edouard-manet/fishing.jpg")
+# https://www.wikiart.org/en/frederic-bazille/village-street
+captioning("https://uploads2.wikiart.org/images/frederic-bazille/village-street.jpg")
+# https://www.wikiart.org/en/claude-monet/wooded-path-1865
+captioning("https://uploads0.wikiart.org/images/claude-monet/wooded-path-1865.jpg")
+# https://www.wikiart.org/en/pierre-auguste-renoir/flowers-in-a-vase
+captioning("https://uploads1.wikiart.org/images/pierre-auguste-renoir/flowers-in-a-vase.jpg")
+# https://www.wikiart.org/en/claude-monet/fishing-boats-calm-sea
+captioning("https://uploads6.wikiart.org/images/claude-monet/fishing-boats-calm-sea.jpg")
+# https://www.wikiart.org/en/claude-monet/red-mullets
+captioning("https://uploads4.wikiart.org/images/claude-monet/red-mullets.jpg")
 
