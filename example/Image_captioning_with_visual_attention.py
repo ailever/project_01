@@ -381,7 +381,7 @@ def train_step(img_tensor, target):
 
     return loss, total_loss
 
-EPOCHS = 5
+EPOCHS = 20
 
 for epoch in range(start_epoch, EPOCHS):
     start = time.time()
@@ -484,9 +484,7 @@ plot_attention(image, result, attention_plot, "name")
 
 def captioning(image_url):
     image_extension = image_url[-4:];  image_name = image_url[-10:-4]
-    image_path = tf.keras.utils.get_file('image'+image_extension,
-                                     origin=image_url)
-
+    image_path = tf.keras.utils.get_file('image {}'.format(image_name) + image_extension, origin=image_url)
     result, attention_plot = evaluate(image_path)
     print ('Prediction Caption({}):'.format(image_name), ' '.join(result))
     with open('result_for_{}.txt'.format(image_name), 'w') as f:
@@ -504,7 +502,7 @@ def captioning(image_url):
 # https://www.wikiart.org/en/edouard-manet/fishing
 captioning(image_url="https://uploads1.wikiart.org/images/edouard-manet/fishing.jpg")
 # https://www.wikiart.org/en/frederic-bazille/village-street
-captioning(image_url="input_url=https://uploads2.wikiart.org/images/frederic-bazille/village-street.jpg")
+captioning(image_url="https://uploads2.wikiart.org/images/frederic-bazille/village-street.jpg")
 # https://www.wikiart.org/en/claude-monet/wooded-path-1865
 captioning(image_url="https://uploads0.wikiart.org/images/claude-monet/wooded-path-1865.jpg")
 # https://www.wikiart.org/en/pierre-auguste-renoir/flowers-in-a-vase
