@@ -23,7 +23,7 @@
 
 ### Image captioning
 
-
+- Analysis of diversity-accuracy tradeoff in image captioning (Feb 2020)｜[pdf](https://arxiv.org/abs/2002.11848)
 - X-Linear Attention Networks for Image Captioning (Mar 2020)｜[pdf](https://arxiv.org/abs/2003.14080)｜[github](https://github.com/Panda-Peter/image-captioning)
 - VL-BERT: Pre-training of Generic Visual-Linguistic Representations (Mar 2020)｜[pdf](https://openreview.net/forum?id=SygXPaEYvH)
 - Image Captioning: Transforming Objects into Words (Jan 2020)｜[pdf](https://arxiv.org/abs/1906.05963)
