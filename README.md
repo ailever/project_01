@@ -21,10 +21,13 @@
 - Visual to Text: Survey of Image and Video Captioning (Jan 2019)｜[pdf](https://www.researchgate.net/publication/330708929_Visual_to_Text_Survey_of_Image_and_Video_Captioning)
 - A survey on deep neural network-based image captioning(June 2018)｜[pdf](https://link.springer.com/article/10.1007/s00371-018-1566-y)
 
+
 ### Image captioning
+
 
 - Analysis of diversity-accuracy tradeoff in image captioning (Feb 2020)｜[pdf](https://arxiv.org/abs/2002.11848)
 - X-Linear Attention Networks for Image Captioning (Mar 2020)｜[pdf](https://arxiv.org/abs/2003.14080)｜[github](https://github.com/Panda-Peter/image-captioning)
+- Show, Edit and Tell: A Framework for Editing Image Captions (Mar 2020)｜[pdf](https://arxiv.org/abs/2003.03107)
 - VL-BERT: Pre-training of Generic Visual-Linguistic Representations (Mar 2020)｜[pdf](https://openreview.net/forum?id=SygXPaEYvH)
 - Image Captioning: Transforming Objects into Words (Jan 2020)｜[pdf](https://arxiv.org/abs/1906.05963)
 - Show, Control and Tell:A Framework for Generating Controllable and Grounded Captions (May 2019)｜[pdf](https://arxiv.org/pdf/1811.10652.pdf)｜[github](https://github.com/aimagelab/show-control-and-tell)
