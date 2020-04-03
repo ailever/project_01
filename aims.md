@@ -10,6 +10,7 @@
 ### alternative ways
 - crawling : wikiart 
 - other dataset
+- unsupervised learning([Towards Unsupervised Image Captioning with Shared Multimodal Embeddings(Aug 2019)](https://arxiv.org/abs/1908.09317))
 
 <br><br><br>
 
