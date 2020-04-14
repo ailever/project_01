@@ -18,10 +18,6 @@
 
 ## Related work
 
-- Visual to Text: Survey of Image and Video Captioning (Jan 2019)｜[pdf](https://www.researchgate.net/publication/330708929_Visual_to_Text_Survey_of_Image_and_Video_Captioning)
-- A survey on deep neural network-based image captioning(June 2018)｜[pdf](https://link.springer.com/article/10.1007/s00371-018-1566-y)
-
-
 ### Image captioning
 
 - Captioning Images Taken by People Who Are Blind (Feb 2020)｜[pdf](https://arxiv.org/abs/2002.08565)
@@ -34,6 +30,11 @@
 - Show, Attend and Tell: Neural Image Caption Generation with Visual Attention｜[pdf](https://arxiv.org/abs/1502.03044)
 - Auto-Encoding Scene Graphs for Image Captioning｜[pdf](https://arxiv.org/abs/1812.02378)
 - Image Captioning with Semantic Attention (Mar 2016)｜[pdf](https://arxiv.org/abs/1603.03925)
+
+#### Survey
+
+- Visual to Text: Survey of Image and Video Captioning (Jan 2019)｜[pdf](https://www.researchgate.net/publication/330708929_Visual_to_Text_Survey_of_Image_and_Video_Captioning)
+- A survey on deep neural network-based image captioning(June 2018)｜[pdf](https://link.springer.com/article/10.1007/s00371-018-1566-y)
 
 
 #### Natural Language Processing
