@@ -7,7 +7,8 @@
   - Image captioning
     - Survey
     - Natural Language Processing
-    
+    - Evaluation : metrics
+
     
 ---
 
