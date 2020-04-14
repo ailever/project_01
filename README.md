@@ -36,8 +36,12 @@
 - Image Captioning with Semantic Attention (Mar 2016)｜[pdf](https://arxiv.org/abs/1603.03925)
 
 
-### Natural Language Processing
+#### Natural Language Processing
 
 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (May 2019)｜[pdf](https://arxiv.org/abs/1810.04805)
 - Universal Language Model Fine-tuning for Text Classification (May 2018)｜[pdf](https://arxiv.org/abs/1801.06146v5)
 - Deep contextualized word representations (Mar 2018)｜[pdf](https://arxiv.org/abs/1802.05365v2)
+
+#### Evaluation : metrics
+
+- Learning to Evaluate Image Captioning (Jun 2018)｜[pdf](https://arxiv.org/abs/1806.06422)
