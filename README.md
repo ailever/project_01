@@ -27,6 +27,7 @@
 - Analysis of diversity-accuracy tradeoff in image captioning (Feb 2020)｜[pdf](https://arxiv.org/abs/2002.11848)
 - X-Linear Attention Networks for Image Captioning (Mar 2020)｜[pdf](https://arxiv.org/abs/2003.14080)｜[github](https://github.com/Panda-Peter/image-captioning)
 - Show, Edit and Tell: A Framework for Editing Image Captions (Mar 2020)｜[pdf](https://arxiv.org/abs/2003.03107)
+- Show, Recall, and Tell: Image Captioning with Recall Mechanism(Jan 2020)｜[pdf](https://arxiv.org/abs/2001.05876)
 - VL-BERT: Pre-training of Generic Visual-Linguistic Representations (Mar 2020)｜[pdf](https://openreview.net/forum?id=SygXPaEYvH)
 - Image Captioning: Transforming Objects into Words (Jan 2020)｜[pdf](https://arxiv.org/abs/1906.05963)
 - Show, Control and Tell:A Framework for Generating Controllable and Grounded Captions (May 2019)｜[pdf](https://arxiv.org/pdf/1811.10652.pdf)｜[github](https://github.com/aimagelab/show-control-and-tell)
