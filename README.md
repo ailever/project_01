@@ -38,6 +38,7 @@
 
 #### Survey
 
+- A Systematic Literature Review on Image Captioning (May 2019)｜[pdf](https://www.mdpi.com/2076-3417/9/10/2024)
 - Visual to Text: Survey of Image and Video Captioning (Jan 2019)｜[pdf](https://www.researchgate.net/publication/330708929_Visual_to_Text_Survey_of_Image_and_Video_Captioning)
 - A survey on deep neural network-based image captioning(June 2018)｜[pdf](https://link.springer.com/article/10.1007/s00371-018-1566-y)
 
