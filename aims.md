@@ -25,7 +25,7 @@
 
 ---
 
-## 3) How to design about our model?
+## 3) How to design our model?
 ![image](https://user-images.githubusercontent.com/52376448/78310870-2383d380-758a-11ea-947e-4372225b0c3f.png)
 <br><br><br>
 
