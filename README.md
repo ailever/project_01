@@ -32,6 +32,8 @@
 - Image Captioning: Transforming Objects into Words (Jan 2020)｜[pdf](https://arxiv.org/abs/1906.05963)
 - Attention on Attention for Image Captioning (Aug 2019)｜[pdf](https://arxiv.org/abs/1908.06954)
 - Show, Control and Tell:A Framework for Generating Controllable and Grounded Captions (May 2019)｜[pdf](https://arxiv.org/pdf/1811.10652.pdf)｜[github](https://github.com/aimagelab/show-control-and-tell)
+- Auto-Encoding Scene Graphs for Image Captioning (Dec 2018)｜[pdf](https://arxiv.org/abs/1812.02378)
+- Exploring Visual Relationship for Image Captioning (Sep 2018)｜[pdf](https://arxiv.org/abs/1809.07041)
 - Show, Attend and Tell: Neural Image Caption Generation with Visual Attention (Apr 2016)｜[pdf](https://arxiv.org/abs/1502.03044)
 - Auto-Encoding Scene Graphs for Image Captioning｜[pdf](https://arxiv.org/abs/1812.02378)
 - Image Captioning with Semantic Attention (Mar 2016)｜[pdf](https://arxiv.org/abs/1603.03925)
