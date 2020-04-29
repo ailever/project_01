@@ -45,6 +45,9 @@
 - Visual to Text: Survey of Image and Video Captioning (Jan 2019)｜[pdf](https://www.researchgate.net/publication/330708929_Visual_to_Text_Survey_of_Image_and_Video_Captioning)
 - A survey on deep neural network-based image captioning(June 2018)｜[pdf](https://link.springer.com/article/10.1007/s00371-018-1566-y)
 
+#### Video captioning
+
+- STAT: Spatial-Temporal Attention Mechanismfor Video Captioning (Jan 2020)｜[pdf](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8744407&tag=1)
 
 #### Natural Language Processing
 
