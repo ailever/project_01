@@ -35,6 +35,7 @@
 - Auto-Encoding Scene Graphs for Image Captioning (Dec 2018)｜[pdf](https://arxiv.org/abs/1812.02378)
 - Exploring Visual Relationship for Image Captioning (Sep 2018)｜[pdf](https://arxiv.org/abs/1809.07041)
 - <b>Recurrent Fusion Network for Image Captioning (Jul 2018)</b>｜[pdf](https://arxiv.org/abs/1807.09986)
+- <b>Areas of attention for image captioning (Aug 2017)｜[pdf](https://arxiv.org/abs/1612.01033)</b>
 - <b>Show, Attend and Tell: Neural Image Caption Generation with Visual Attention (Apr 2016)</b>｜[pdf](https://arxiv.org/abs/1502.03044)
 - Auto-Encoding Scene Graphs for Image Captioning｜[pdf](https://arxiv.org/abs/1812.02378)
 - Image Captioning with Semantic Attention (Mar 2016)｜[pdf](https://arxiv.org/abs/1603.03925)
