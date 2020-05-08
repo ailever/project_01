@@ -23,6 +23,7 @@
 
 ### Image captioning
 
+- Transform and Tell: Entity-Aware News Image Captioning (Apr 2020)｜[pdf](https://arxiv.org/abs/2004.08070)｜[github](https://github.com/alasdairtran/transform-and-tell)
 - VL-BERT: Pre-training of Generic Visual-Linguistic Representations (Mar 2020)｜[pdf](https://openreview.net/forum?id=SygXPaEYvH)
 - <b>X-Linear Attention Networks for Image Captioning (Mar 2020)</b>｜[pdf](https://arxiv.org/abs/2003.14080)｜[github](https://github.com/Panda-Peter/image-captioning)
 - Show, Edit and Tell: A Framework for Editing Image Captions (Mar 2020)｜[pdf](https://arxiv.org/abs/2003.03107)
