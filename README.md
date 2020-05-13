@@ -18,7 +18,6 @@
 - tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
 - captioning metrics : https://github.com/wangleihitcs/CaptionMetrics
 
-<br><br><br>
 ### File link
 - trainval.zip : https://imagecaption.blob.core.windows.net/imagecaption/trainval.zip
 <br><br><br>
