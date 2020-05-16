@@ -59,7 +59,8 @@
 
 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (May 2019)｜[pdf](https://arxiv.org/abs/1810.04805)
 - Universal Language Model Fine-tuning for Text Classification (May 2018)｜[pdf](https://arxiv.org/abs/1801.06146v5)
-- Deep contextualized word representations (Mar 2018)｜[pdf](https://arxiv.org/abs/1802.05365v2)
+- Language Models are Unsupervised Multitask Learners, GPT ｜[pdf](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+- Deep contextualized word representations, ELMo (Mar 2018)｜[pdf](https://arxiv.org/abs/1802.05365v2)
 
 #### Evaluation : metrics
 
