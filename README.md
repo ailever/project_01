@@ -57,11 +57,11 @@
 
 #### Natural Language Processing
 
-- BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (May 2019)｜[pdf](https://arxiv.org/abs/1810.04805)
-- Universal Language Model Fine-tuning for Text Classification (May 2018)｜[pdf](https://arxiv.org/abs/1801.06146v5)
-- Language Models are Unsupervised Multitask Learners, GPT ｜[pdf](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
-- Deep contextualized word representations, ELMo (Mar 2018)｜[pdf](https://arxiv.org/abs/1802.05365v2)
-- Attention Is All You Need, Transformer (Dec 2017)｜[pdf](https://arxiv.org/abs/1706.03762)
+- <b>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (May 2019)</b>｜[pdf](https://arxiv.org/abs/1810.04805)
+- <b>Universal Language Model Fine-tuning for Text Classification (May 2018)</b>｜[pdf](https://arxiv.org/abs/1801.06146v5)
+- <b>Language Models are Unsupervised Multitask Learners, GPT</b> ｜[pdf](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+- <b>Deep contextualized word representations, ELMo (Mar 2018)</b>｜[pdf](https://arxiv.org/abs/1802.05365v2)
+- <b>Attention Is All You Need, Transformer (Dec 2017)</b>｜[pdf](https://arxiv.org/abs/1706.03762)
 
 #### Evaluation : metrics
 
