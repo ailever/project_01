@@ -56,7 +56,7 @@
 - STAT: Spatial-Temporal Attention Mechanismfor Video Captioning (Jan 2020)｜[pdf](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8744407&tag=1)
 
 #### Natural Language Processing
-
+- <b>RoBERTa: A Robustly Optimized BERT Pretraining Approach, (Jul 2019)</b>｜[pdf](https://arxiv.org/abs/1907.11692)
 - <b>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (May 2019)</b>｜[pdf](https://arxiv.org/abs/1810.04805)
 - <b>Universal Language Model Fine-tuning for Text Classification (May 2018)</b>｜[pdf](https://arxiv.org/abs/1801.06146v5)
 - <b>Language Models are Unsupervised Multitask Learners, GPT</b> ｜[pdf](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
