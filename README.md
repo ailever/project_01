@@ -57,7 +57,7 @@
 - STAT: Spatial-Temporal Attention Mechanismfor Video Captioning (Jan 2020)｜[pdf](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8744407&tag=1)
 
 #### Natural Language Processing
-- <b>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding, [Transformer], (May 2019)</b>｜[pdf](https://arxiv.org/abs/1810.04805)
+- <b>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding, [Transformer, Bi-Encoder], (May 2019)</b>｜[pdf](https://arxiv.org/abs/1810.04805)
   - DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter, Mar 2020｜[pdf](https://arxiv.org/abs/1910.01108)
   - Cross-lingual Language Model Pretraining, XLM, (Jan 2019)｜[pdf](https://arxiv.org/abs/1901.07291)
   - SLNet: Stereo face liveness detection via dynamic disparity-maps and convolutional neural network, (March 2020)｜[pdf](https://www.sciencedirect.com/science/article/abs/pii/S0957417419307195)
