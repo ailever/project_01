@@ -34,7 +34,7 @@
 - Captioning Images Taken by People Who Are Blind (Feb 2020)｜[pdf](https://arxiv.org/abs/2002.08565)
 - Analysis of diversity-accuracy tradeoff in image captioning (Feb 2020)｜[pdf](https://arxiv.org/abs/2002.11848)
 - Show, Recall, and Tell: Image Captioning with Recall Mechanism (Jan 2020)｜[pdf](https://arxiv.org/abs/2001.05876)
-- Image Captioning: Transforming Objects into Words (Jan 2020)｜[pdf](https://arxiv.org/abs/1906.05963)
+- <b>Image Captioning: Transforming Objects into Words (Jan 2020)</b>｜[pdf](https://arxiv.org/abs/1906.05963)
 - <b>Attention on Attention for Image Captioning (Aug 2019)</b>｜[pdf](https://arxiv.org/abs/1908.06954)｜[github](https://github.com/husthuaan/AoANet)
 - Show, Control and Tell:A Framework for Generating Controllable and Grounded Captions (May 2019)｜[pdf](https://arxiv.org/pdf/1811.10652.pdf)｜[github](https://github.com/aimagelab/show-control-and-tell)
 - Auto-Encoding Scene Graphs for Image Captioning (Dec 2018)｜[pdf](https://arxiv.org/abs/1812.02378)
