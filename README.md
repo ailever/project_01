@@ -57,13 +57,13 @@
 - STAT: Spatial-Temporal Attention Mechanismfor Video Captioning (Jan 2020)｜[pdf](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8744407&tag=1)
 
 #### Natural Language Processing
-- <b>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding, [Transformer, Bi-Encoder], (May 2019)</b>｜[pdf](https://arxiv.org/abs/1810.04805)
+- <b>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding, [Bert, Transformer, Bi-Encoder], (May 2019)</b>｜[pdf](https://arxiv.org/abs/1810.04805)
   - DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter, Mar 2020｜[pdf](https://arxiv.org/abs/1910.01108)
   - Cross-lingual Language Model Pretraining, XLM, (Jan 2019)｜[pdf](https://arxiv.org/abs/1901.07291)
   - SLNet: Stereo face liveness detection via dynamic disparity-maps and convolutional neural network, (March 2020)｜[pdf](https://www.sciencedirect.com/science/article/abs/pii/S0957417419307195)
   - RoBERTa: A Robustly Optimized BERT Pretraining Approach, (Jul 2019)｜[pdf](https://arxiv.org/abs/1907.11692)
 - <b>Universal Language Model Fine-tuning for Text Classification , ULMFiT, (May 2018)</b>｜[pdf](https://arxiv.org/abs/1801.06146v5)
-- <b>Language Models are Unsupervised Multitask Learners, [GPT, Transformer]</b> ｜[pdf](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+- <b>Language Models are Unsupervised Multitask Learners, [GPT, Transformer, Uni-Encoder]</b> ｜[pdf](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 - <b>Deep contextualized word representations, [ELMo, CNN, bi-LSTM, Pre-training], (Mar 2018)</b>｜[pdf](https://arxiv.org/abs/1802.05365v2)
 - <b>Attention Is All You Need, [Transformer, Attention], (Dec 2017)</b>｜[pdf](https://arxiv.org/abs/1706.03762)
 
