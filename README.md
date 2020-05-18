@@ -64,8 +64,8 @@
   - RoBERTa: A Robustly Optimized BERT Pretraining Approach, (Jul 2019)｜[pdf](https://arxiv.org/abs/1907.11692)
 - <b>Universal Language Model Fine-tuning for Text Classification , ULMFiT, (May 2018)</b>｜[pdf](https://arxiv.org/abs/1801.06146v5)
 - <b>Language Models are Unsupervised Multitask Learners, GPT</b> ｜[pdf](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
-- <b>Deep contextualized word representations, ELMo (Mar 2018)</b>｜[pdf](https://arxiv.org/abs/1802.05365v2)
-- <b>Attention Is All You Need, Transformer (Dec 2017)</b>｜[pdf](https://arxiv.org/abs/1706.03762)
+- <b>Deep contextualized word representations, [ELMo, Pre-training] (Mar 2018)</b>｜[pdf](https://arxiv.org/abs/1802.05365v2)
+- <b>Attention Is All You Need, [Transformer, Attention] (Dec 2017)</b>｜[pdf](https://arxiv.org/abs/1706.03762)
 
 #### Evaluation : metrics
 
