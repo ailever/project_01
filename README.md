@@ -36,6 +36,7 @@
 - Show, Recall, and Tell: Image Captioning with Recall Mechanism (Jan 2020)｜[pdf](https://arxiv.org/abs/2001.05876)
 - <b>Image Captioning: Transforming Objects into Words (Jan 2020)</b>｜[pdf](https://arxiv.org/abs/1906.05963)
 - <b>Attention on Attention for Image Captioning (Aug 2019)</b>｜[pdf](https://arxiv.org/abs/1908.06954)｜[github](https://github.com/husthuaan/AoANet)
+  - [REF] Bottom-Up and Top-Down Attention for Image Captioning and Visual Question Answering (Mar 2018)｜[pdf](https://arxiv.org/abs/1707.07998)
 - Show, Control and Tell:A Framework for Generating Controllable and Grounded Captions (May 2019)｜[pdf](https://arxiv.org/pdf/1811.10652.pdf)｜[github](https://github.com/aimagelab/show-control-and-tell)
 - Auto-Encoding Scene Graphs for Image Captioning (Dec 2018)｜[pdf](https://arxiv.org/abs/1812.02378)
 - Exploring Visual Relationship for Image Captioning (Sep 2018)｜[pdf](https://arxiv.org/abs/1809.07041)
