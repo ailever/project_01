@@ -26,7 +26,6 @@
 ## Related work
 
 ### Image captioning
-- Domain-Specific Image Caption Generator with Semantic Ontology (Feb 2020)｜[pdf](https://ieeexplore.ieee.org/document/9070680)
 - Transform and Tell: Entity-Aware News Image Captioning (Apr 2020)｜[pdf](https://arxiv.org/abs/2004.08070)｜[github](https://github.com/alasdairtran/transform-and-tell)
 - VL-BERT: Pre-training of Generic Visual-Linguistic Representations (Mar 2020)｜[pdf](https://openreview.net/forum?id=SygXPaEYvH)
 - <b>X-Linear Attention Networks for Image Captioning (Mar 2020)</b>｜[pdf](https://arxiv.org/abs/2003.14080)｜[github](https://github.com/Panda-Peter/image-captioning)
@@ -66,6 +65,10 @@
 - <b>Language Models are Unsupervised Multitask Learners, [GPT, Transformer, Uni-Encoder]</b> ｜[pdf](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 - <b>Deep contextualized word representations, [ELMo, CNN, biLM, Pre-training], (Mar 2018)</b>｜[pdf](https://arxiv.org/abs/1802.05365v2)
 - <b>Attention Is All You Need, [Transformer, Attention], (Dec 2017)</b>｜[pdf](https://arxiv.org/abs/1706.03762)
+
+#### Ontology
+- Domain-Specific Image Caption Generator with Semantic Ontology (Feb 2020)｜[pdf](https://ieeexplore.ieee.org/document/9070680)
+- Exploiting Ontologies for Automatic Image Annotation (Aug 2005)｜[pdf](https://dl.acm.org/doi/pdf/10.1145/1076034.1076128?download=true)
 
 #### Evaluation : metrics
 
