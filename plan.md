@@ -1,14 +1,14 @@
 # PLAN
 
 ## MODELs
-- 1. <b>base :aoanet</b>｜[option : metrics(), dataset()]
-- 2. <b>base :aoanet, + gram-schmidt</b>｜[option : metrics(), dataset()]
+- 1. <b>base :aoanet</b>｜[option : metrics(), dataset(ms coco)]
+- 2. <b>base :aoanet, + gram-schmidt</b>｜[option : metrics(), dataset(ms coco)]
 - 3. <b>base :bert</b>｜[option : metrics(), dataset()]
-- 4. <b>base :bert, + aoa module</b>｜[option : metrics(), dataset()]
-- 5. <b>base :bert, + gram-schmidt</b>｜[option : metrics(), dataset()]
-- 6. <b>base :bert, + (gram-schmidt + penetrate latent token)</b>｜[option : metrics(), dataset()]
-- 7. <b>base :bert, + aoa module + gram-schmidt</b>｜[option : metrics(), dataset()]
-- 8. <b>base :bert, + aoa module + (gram-schmidt + penetrate latent token)</b>｜[option : metrics(), dataset()]
+- 4. <b>base :bert, + aoa module</b>｜[option : metrics(), dataset(ms coco)]
+- 5. <b>base :bert, + gram-schmidt</b>｜[option : metrics(), dataset(ms coco)]
+- 6. <b>base :bert, + (gram-schmidt + penetrate latent token)</b>｜[option : metrics(), dataset(ms coco)]
+- 7. <b>base :bert, + aoa module + gram-schmidt</b>｜[option : metrics(), dataset(ms coco)]
+- 8. <b>base :bert, + aoa module + (gram-schmidt + penetrate latent token)</b>｜[option : metrics(), dataset(ms coco, stylized coco)]
 
 ## METRICS
 - BLEU[1,4]
