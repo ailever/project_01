@@ -1,14 +1,14 @@
 # PLAN
 
 ## MODELs
-- 1. base :aoanet｜[option : metrics(), dataset()]
-- 2. base :aoanet, + gram-schmidt｜[option : metrics(), dataset()]
-- 3. base :bert｜[option : metrics(), dataset()]
-- 4. base :bert, + aoa module｜[option : metrics(), dataset()]
-- 5. base :bert, + gram-schmidt｜[option : metrics(), dataset()]
-- 6. base :bert, + (gram-schmidt + penetrate latent token)｜[option : metrics(), dataset()]
-- 7. base :bert, + aoa module + gram-schmidt｜[option : metrics(), dataset()]
-- 8. base :bert, + aoa module + (gram-schmidt + penetrate latent token)｜[option : metrics(), dataset()]
+- 1. <b>base :aoanet</b>｜[option : metrics(), dataset()]
+- 2. <b>base :aoanet, + gram-schmidt</b>｜[option : metrics(), dataset()]
+- 3. <b>base :bert</b>｜[option : metrics(), dataset()]
+- 4. <b>base :bert, + aoa module</b>｜[option : metrics(), dataset()]
+- 5. <b>base :bert, + gram-schmidt</b>｜[option : metrics(), dataset()]
+- 6. <b>base :bert, + (gram-schmidt + penetrate latent token)</b>｜[option : metrics(), dataset()]
+- 7. <b>base :bert, + aoa module + gram-schmidt</b>｜[option : metrics(), dataset()]
+- 8. <b>base :bert, + aoa module + (gram-schmidt + penetrate latent token)</b>｜[option : metrics(), dataset()]
 
 ## METRICS
 - BLEU[1,4]
