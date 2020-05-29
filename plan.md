@@ -7,6 +7,7 @@
 - 5. base :bert, + gram-schmidt
 - 6. base :bert, + aoa module + gram-schmidt
 
+---
 
 ## 5.29~5.30
  
