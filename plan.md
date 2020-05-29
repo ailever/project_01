@@ -1,5 +1,6 @@
 # PLAN
 
+## MODELs
 - 1. base :aoanet
 - 2. base :aoanet, + gram-schmidt
 - 3. base :bert
@@ -8,6 +9,13 @@
 - 6. base :bert, + (gram-schmidt + penetrate latent token)
 - 7. base :bert, + aoa module + gram-schmidt
 - 8. base :bert, + aoa module + (gram-schmidt + penetrate latent token)
+
+## METRICS
+- BLEU[1,4]
+- CIDEr-D
+- SPICE
+- METEOR
+- ROUGE-L
 
 ---
 
