@@ -5,7 +5,9 @@
 - 3. base :bert
 - 4. base :bert, + aoa module
 - 5. base :bert, + gram-schmidt
-- 6. base :bert, + aoa module + gram-schmidt
+- 6. base :bert, + (gram-schmidt + penetrate latent token)
+- 7. base :bert, + aoa module + gram-schmidt
+- 8. base :bert, + aoa module + (gram-schmidt + penetrate latent token)
 
 ---
 
