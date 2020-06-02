@@ -20,7 +20,8 @@
 - image captioning transformer : https://www.ctolib.com/krasserm-fairseq-image-captioning.html
 
 ### File link
-- trainval.zip : https://imagecaption.blob.core.windows.net/imagecaption/trainval.zip
+- trainval.zip : `wget https://imagecaption.blob.core.windows.net/imagecaption/trainval.zip`
+- GoogleNews-vectors-negative300.bin : `wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"`
 <br><br><br>
 
 ## Related work
