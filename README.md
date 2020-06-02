@@ -22,6 +22,14 @@
 ### File link
 - trainval.zip : `wget https://imagecaption.blob.core.windows.net/imagecaption/trainval.zip`
 - GoogleNews-vectors-negative300.bin : `wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"`
+
+<br><br><br>
+
+### package
+```bash
+pip install gensim
+pip install pyemd
+```
 <br><br><br>
 
 ## Related work
