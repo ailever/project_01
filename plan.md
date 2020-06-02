@@ -27,11 +27,23 @@
 
 ## 5.31~6.6
 
+- 1. <b>base :aoanet</b>｜[option : metrics(), dataset(ms coco)]
+- 2. <b>base :aoanet, + gram-schmidt</b>｜[option : metrics(), dataset(ms coco)]
+
+
 <br><br><br>
 
 ---
 
 ## 6.7~6.13
+
+- 3. <b>base :bert</b>｜[option : metrics(), dataset()]
+- 4. <b>base :bert, + aoa module</b>｜[option : metrics(), dataset(ms coco)]
+- 5. <b>base :bert, + gram-schmidt</b>｜[option : metrics(), dataset(ms coco)]
+- 6. <b>base :bert, + (gram-schmidt + penetrate latent token)</b>｜[option : metrics(), dataset(ms coco)]
+- 7. <b>base :bert, + aoa module + gram-schmidt</b>｜[option : metrics(), dataset(ms coco)]
+- 8. <b>base :bert, + aoa module + (gram-schmidt + penetrate latent token)</b>｜[option : metrics(), dataset(ms coco, stylized coco)]
+
 
 <br><br><br>
 
