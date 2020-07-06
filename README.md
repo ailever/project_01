@@ -17,6 +17,8 @@
 
 ```bash
 $ git clone https://github.com/ailever/grnet.git
+$ cd grnet
+$ git clone https://github.com/ruotianluo/coco-caption.git
 $ pip install -r requirements.txt
 ```
 
