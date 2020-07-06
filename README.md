@@ -1,4 +1,4 @@
-# project_01
+# GRNet
 
 ## Table of contents
 
