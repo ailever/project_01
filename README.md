@@ -15,21 +15,31 @@
 
 ## Implemetation
 
-```bash
-$ git clone https://github.com/ailever/grnet.git
-$ cd grnet
-$ git clone https://github.com/ruotianluo/coco-caption.git
-$ pip install -r requirements.txt
-```
-
 - image source : https://www.wikiart.org/
 - tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
 - captioning metrics : https://github.com/wangleihitcs/CaptionMetrics
 - image captioning transformer : https://www.ctolib.com/krasserm-fairseq-image-captioning.html
-
-### File link
 - trainval.zip : `wget https://imagecaption.blob.core.windows.net/imagecaption/trainval.zip`
 - GoogleNews-vectors-negative300.bin : `wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"`
+
+
+
+```bash
+$ git clone https://github.com/ailever/grnet.git
+$ cd grnet
+$ git clone https://github.com/ruotianluo/coco-caption.git
+$ cd coco-caption
+$ bash get_stanford_models.sh
+```
+```bash
+$ pip install -r requirements.txt
+```
+
+### Dataset
+```
+$ 
+```
+
 
 <br><br><br>
 
