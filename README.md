@@ -14,6 +14,12 @@
 
 
 ## Implemetation
+
+```bash
+$ git clone https://github.com/ailever/grnet.git
+$ pip install -r requirements.txt
+```
+
 - image source : https://www.wikiart.org/
 - tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
 - captioning metrics : https://github.com/wangleihitcs/CaptionMetrics
