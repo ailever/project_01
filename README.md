@@ -3,6 +3,7 @@
 ## Table of contents
 
 - Implementation
+  - Directory structure
 - Related work
   - Image captioning
     - Survey
@@ -15,6 +16,13 @@
 
 ## Implemetation
 
+### Directory structure
+- grnet
+  - coco-caption
+  - cider
+  - data
+
+### Download links
 - image source : https://www.wikiart.org/
 - tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
 - captioning metrics : https://github.com/wangleihitcs/CaptionMetrics
@@ -23,17 +31,23 @@
 - GoogleNews-vectors-negative300.bin : `wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"`
 
 
-
+`./`
 ```bash
 $ git clone https://github.com/ailever/grnet.git
+```
+
+`./grnet/`
+```bash
 $ cd grnet
 $ git clone https://github.com/ruotianluo/coco-caption.git
-$ cd coco-caption
+$ git clone https://github.com/ruotianluo/cider.git
+$ pip install -r requirements.txt
+```
+
+`./grnet/coco-caption/`
+```bash
 $ bash get_stanford_models.sh
 $ bash bash get_google_word2vec_model.sh
-```
-```bash
-$ pip install -r requirements.txt
 ```
 
 ### Dataset
