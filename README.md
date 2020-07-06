@@ -30,6 +30,7 @@ $ cd grnet
 $ git clone https://github.com/ruotianluo/coco-caption.git
 $ cd coco-caption
 $ bash get_stanford_models.sh
+$ bash bash get_google_word2vec_model.sh
 ```
 ```bash
 $ pip install -r requirements.txt
