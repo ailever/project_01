@@ -38,7 +38,6 @@ $ git clone https://github.com/ailever/grnet.git
 <br><br>
 `./grnet/`
 ```bash
-$ cd grnet
 $ git clone https://github.com/ruotianluo/coco-caption.git
 $ git clone https://github.com/ruotianluo/cider.git
 $ pip install -r requirements.txt
