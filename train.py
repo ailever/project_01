@@ -112,10 +112,11 @@ def train(opt):
         optimizer = utils.ReduceLROnPlateau(optimizer, factor=0.5, patience=3)
     else:
         optimizer = utils.build_optimizer(model.parameters(), opt)
+    """
     # Load the optimizer
     if vars(opt).get('start_from', None) is not None and os.path.isfile(os.path.join(opt.start_from,"optimizer.pth")):
         optimizer.load_state_dict(torch.load(os.path.join(opt.start_from, 'optimizer.pth')))
-
+    """
 
     def save_checkpoint(model, infos, optimizer, histories=None, append=''):
         if len(append) > 0:

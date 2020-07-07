@@ -343,25 +343,28 @@ class BertAoA_Decoder_Core(nn.Module):
         self.d_model = opt.rnn_size
         self.use_multi_head = opt.use_multi_head
         self.multi_head_scale = opt.multi_head_scale
+
         self.use_ctx_drop = getattr(opt, 'ctx_drop', 0)
         self.out_res = getattr(opt, 'out_res', 0)
         self.decoder_type = getattr(opt, 'decoder_type', 'BertAoA')
+
         self.att_lstm = nn.LSTMCell(opt.input_encoding_size + opt.rnn_size, opt.rnn_size) # we, fc, h^2_t-1
         self.out_drop = nn.Dropout(self.drop_prob_lm)
         self.gsp = opt.gsp
-        self.encoder_layer = nn.TransformerEncoderLayer(d_model=512, nhead=opt.nhead)
+        self.encoder_layer = nn.TransformerEncoderLayer(d_model=1024, nhead=opt.nhead)
         
-        if self.decoder_type == 'AoA':
-            # AoA layer
-            self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
-        elif self.decoder_type == 'LSTM':
+        self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
+        """
+        if self.decoder_type == 'LSTM':
             # LSTM layer
             self.att2ctx = nn.LSTMCell(self.d_model * opt.multi_head_scale + opt.rnn_size, opt.rnn_size)
         elif self.decoder_type == 'BertAoA':
-            self.att2ctx = nn.Sequential(nn.TransformerEncoder(self.encoder_layer, num_layers=opt.nlayer), nn.GLU())
+            self.att2ctx = nn.TransformerEncoder(self.encoder_layer, num_layers=opt.nlayer)
+        
         else:
             # Base linear layer
             self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, opt.rnn_size), nn.ReLU())
+        """
 
         # if opt.use_multi_head == 1: # TODO, not implemented for now           
         #     self.attention = MultiHeadedAddAttention(opt.num_heads, opt.d_model, scale=opt.multi_head_scale)
@@ -394,9 +397,15 @@ class BertAoA_Decoder_Core(nn.Module):
         if self.decoder_type == 'LSTM':
             output, c_logic = self.att2ctx(ctx_input, (state[0][1], state[1][1]))
             state = (torch.stack((h_att, output)), torch.stack((c_att, c_logic)))
-        elif self.decoder_type == 'BertAoA':
-            output = self.att2ctx(ctx_input)
-            state = (torch.stack((h_att, output)), torch.stack((c_att, c_logic)))
+            """
+            elif self.decoder_type == 'BertAoA':
+                print(ctx_input.size())
+                print(att_feats.size())           
+                output = self.att2ctx(att_feats).sum(dim=-2)
+                state = (torch.stack((h_att, output)), torch.stack((c_att, state[1][1])))
+                print('===========================')
+                #output = self.att2ctx(ctx_input)
+            """
         else:
             output = self.att2ctx(ctx_input)
             # save the context vector to state[0][1]
