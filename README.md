@@ -9,10 +9,7 @@
     - Survey
     - Natural Language Processing
     - Evaluation : metrics
-
-    
 ---
-
 
 ## Implemetation
 
@@ -50,11 +47,21 @@ $ bash get_stanford_models.sh
 $ bash bash get_google_word2vec_model.sh
 ```
 
-### Dataset
+`./grnet/data/`
 ```
-$ 
+$ wget http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip
+$ unzip caption_datasets.zip
 ```
+- dataset_coco.json
+- dataset_flickr30k.json
+- dataset_flickr8k.json
 
+`./grnet/`
+```bash
+$ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_json data/cocotalk.json --output_h5 data/cocotalk
+```
+- cocotalk.json
+- cocotalk_label.h5
 
 <br><br><br>
 
