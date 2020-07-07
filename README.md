@@ -76,7 +76,7 @@ $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_di
   - data/stylized_cocotalk_att
 
 
-
+<br><br>
 ### Additional resources
 - image source : https://www.wikiart.org/
 - tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
