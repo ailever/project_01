@@ -5,6 +5,8 @@
 - Implementation
   - 1． Download & Installation
   - 2． Prepare dataset
+  - 3． Training
+  - 4． Evaluation
 - Related work
   - Image captioning
     - Survey
@@ -94,6 +96,20 @@ $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_di
   - data/cocotalk_att
   - data/stylized_cocotalk_fc
   - data/stylized_cocotalk_att
+
+
+<br><br>
+### 3. Training
+```bash
+$ bash train.sh
+```
+
+
+<br><br>
+### 4. Evaluation
+```bash
+$ bash evaluation.sh
+```
 
 
 <br><br>
