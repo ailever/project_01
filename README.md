@@ -60,11 +60,12 @@ $ bash bash get_google_word2vec_model.sh
 ```
 $ wget http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip
 $ unzip caption_datasets.zip
+$ mkdir imagenet_weights && wget https://download.pytorch.org/models/resnet101-5d3b4d8f.pth && mv resnet101-5d3b4d8f.pth imagenet_weights/resnet101.pth
 ```
   - grnet/data/dataset_coco.json
   - grnet/data/dataset_flickr30k.json
   - grnet/data/dataset_flickr8k.json
-
+  - grnet/data/imagenet_weights/resnet101.pth
 
 <br><br>
 `./grnet/`
