@@ -13,7 +13,7 @@
 
 ## Implemetation
 
-### Download & Installation
+### 1. Download & Installation
 - image source : https://www.wikiart.org/
 - tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
 - captioning metrics : https://github.com/wangleihitcs/CaptionMetrics
@@ -63,7 +63,7 @@ $ mkdir imagenet_weights && wget https://download.pytorch.org/models/resnet101-5
 
 <br><br>
 
-### Prepare data
+### 2. Prepare data
 `./grnet/`
 ```bash
 $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_json data/cocotalk.json --output_h5 data/cocotalk
