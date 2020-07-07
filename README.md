@@ -14,14 +14,6 @@
 ## Implemetation
 
 ### 1. Download & Installation
-- image source : https://www.wikiart.org/
-- tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
-- captioning metrics : https://github.com/wangleihitcs/CaptionMetrics
-- image captioning transformer : https://www.ctolib.com/krasserm-fairseq-image-captioning.html
-- trainval.zip : `wget https://imagecaption.blob.core.windows.net/imagecaption/trainval.zip`
-- GoogleNews-vectors-negative300.bin : `wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"`
-
-
 `./`
 ```bash
 $ git clone https://github.com/ailever/grnet.git
@@ -83,7 +75,15 @@ $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_di
   - data/stylized_cocotalk_fc
   - data/stylized_cocotalk_att
 
-<br><br>
+
+
+### Additional resources
+- image source : https://www.wikiart.org/
+- tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
+- captioning metrics : https://github.com/wangleihitcs/CaptionMetrics
+- image captioning transformer : https://www.ctolib.com/krasserm-fairseq-image-captioning.html
+- trainval.zip : `wget https://imagecaption.blob.core.windows.net/imagecaption/trainval.zip`
+- GoogleNews-vectors-negative300.bin : `wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"`
 
 <br><br><br>
 
