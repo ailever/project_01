@@ -73,6 +73,7 @@ $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_j
 
 
 <br><br>
+`./grnet/`
 ```bash
 $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_dir data/cocotalk --images_root images/coco
 $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_dir data/stylized_cocotalk --images_root images/stylized_coco
