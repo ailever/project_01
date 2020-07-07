@@ -3,8 +3,8 @@
 ## Table of contents
 
 - Implementation
-  - \1. Download & Installation
-  - \2. Prepare dataset
+  - 1 Download & Installation
+  - 2 Prepare dataset
 - Related work
   - Image captioning
     - Survey
