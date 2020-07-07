@@ -43,7 +43,7 @@ $ bash bash get_google_word2vec_model.sh
 
 <br><br>
 `./grnet/data/`
-```
+```bash
 $ wget http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip
 $ unzip caption_datasets.zip
 $ mkdir imagenet_weights && wget https://download.pytorch.org/models/resnet101-5d3b4d8f.pth && mv resnet101-5d3b4d8f.pth imagenet_weights/resnet101.pth
@@ -53,9 +53,26 @@ $ mkdir imagenet_weights && wget https://download.pytorch.org/models/resnet101-5
   - grnet/data/dataset_flickr8k.json
   - grnet/data/imagenet_weights/resnet101.pth
 
+<br><br>
+`./grnet/images/coco/`
+```bash
+$ wget http://images.cocodataset.org/zips/train2014.zip
+$ wget http://images.cocodataset.org/zips/val2014.zip
+$ unzip train2014.zip
+$ unzip val2014.zip
+```
+  - grnet/images/coco/train2014
+  - grnet/images/coco/val2014
 
 <br><br>
+`./grnet/images/stylized_coco/`
+```bash
+$ 
+```
+  - grnet/images/stylized_coco/train2014
+  - grnet/images/stylized_coco/val2014
 
+<br><br>
 ### 2. Prepare dataset
 `./grnet/`
 ```bash
