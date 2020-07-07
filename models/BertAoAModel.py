@@ -56,10 +56,6 @@ class MultiHeadedDotAttention(nn.Module):
         self.attn = None
         self.dropout = nn.Dropout(p=dropout)
 
-        # grnet
-        self.use_gsp = gsp
-        if self.use_gsp:
-            self.gram_schmidt = GramSchmidt()
     
     def forward(self, query, value, key, mask=None):
         if mask is not None:
@@ -77,10 +73,6 @@ class MultiHeadedDotAttention(nn.Module):
 
         query = self.norm(query)
 
-        # grnet
-        if self.use_gsp:
-            key = self.gram_schmidt(key)
-            value = self.gram_schmidt(value)
     
 
         # Do all the linear projections in batch from d_model => h x d_k 
@@ -200,10 +192,6 @@ class AoA_Decoder_Core(nn.Module):
         return output, state
 
 
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
 
 # 2-dimensional
 class GramSchmidt02(nn.Module):
@@ -286,10 +274,8 @@ class TransformerEncoder(nn.Module):
         self.layers = nn.ModuleList([copy.deepcopy(encoder_layer) for _ in range(num_layers)])
         self.num_layers = num_layers
         self.norm = norm
-        self.gramschmidt = GramSchmidt()
 
     def forward(self, src, mask=None, src_key_padding_mask=None):
-        #output = self.gramschmidt(src)
         output = src
         for mod in self.layers:
             output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
@@ -352,7 +338,7 @@ class GramSchmidt(nn.Module):
 
 class BertAoA_Decoder_Core(nn.Module):
     def __init__(self, opt):
-        super(AoA_Decoder_Core, self).__init__()
+        super(BertAoA_Decoder_Core, self).__init__()
         self.drop_prob_lm = opt.drop_prob_lm
         self.d_model = opt.rnn_size
         self.use_multi_head = opt.use_multi_head
@@ -364,7 +350,7 @@ class BertAoA_Decoder_Core(nn.Module):
         self.out_drop = nn.Dropout(self.drop_prob_lm)
         self.gsp = opt.gsp
         self.encoder_layer = nn.TransformerEncoderLayer(d_model=512, nhead=opt.nhead)
-
+        
         if self.decoder_type == 'AoA':
             # AoA layer
             self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
@@ -404,7 +390,7 @@ class BertAoA_Decoder_Core(nn.Module):
             att = self.attention(h_att, att_feats, p_att_feats, att_masks)
         """
 
-        ctx_input = torch.cat([att, h_att], 1)
+        ctx_input = torch.cat([xt, h_att], 1)
         if self.decoder_type == 'LSTM':
             output, c_logic = self.att2ctx(ctx_input, (state[0][1], state[1][1]))
             state = (torch.stack((h_att, output)), torch.stack((c_att, c_logic)))
@@ -427,7 +413,7 @@ class BertAoA_Decoder_Core(nn.Module):
 
 class BertAoAModel(AttModel):
     def __init__(self, opt):
-        super(AoAModel, self).__init__(opt)
+        super(BertAoAModel, self).__init__(opt)
         self.num_layers = 2
         # mean pooling
         self.use_mean_feats = getattr(opt, 'mean_feats', 1)
