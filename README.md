@@ -39,7 +39,7 @@ $ pip install -r requirements.txt
 `./grnet/coco-caption/`
 ```bash
 $ bash get_stanford_models.sh
-$ bash bash get_google_word2vec_model.sh
+$ bash get_google_word2vec_model.sh
 ```
 
 
