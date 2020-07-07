@@ -4,6 +4,8 @@
 
 - Implementation
   - Directory structure
+  - 1. Download & Installation
+  - 2. Prepare dataset
 - Related work
   - Image captioning
     - Survey
@@ -55,7 +57,7 @@ $ mkdir imagenet_weights && wget https://download.pytorch.org/models/resnet101-5
 
 <br><br>
 
-### 2. Prepare data
+### 2. Prepare dataset
 `./grnet/`
 ```bash
 $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_json data/cocotalk.json --output_h5 data/cocotalk
