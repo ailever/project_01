@@ -20,6 +20,7 @@
 `./`
 ```bash
 $ git clone https://github.com/ailever/grnet.git
+$ pip install -r requirements.txt
 ```
   - grnet
 
@@ -29,7 +30,6 @@ $ git clone https://github.com/ailever/grnet.git
 ```bash
 $ git clone https://github.com/ruotianluo/coco-caption.git
 $ git clone https://github.com/ruotianluo/cider.git
-$ pip install -r requirements.txt
 ```
   - grnet/coco-caption
   - grnet/cider
