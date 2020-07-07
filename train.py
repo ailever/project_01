@@ -186,7 +186,7 @@ def train(opt):
 
             loss_sp.backward()
             if ((iteration+1) % acc_steps == 0):
-                utils.clip_gradient(optimizer, opt.grad_clip)
+                #utils.clip_gradient(optimizer, opt.grad_clip)
                 optimizer.step()
             torch.cuda.synchronize()
             train_loss = loss.item()
