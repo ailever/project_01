@@ -32,7 +32,7 @@
 ```bash
 $ git clone https://github.com/ailever/grnet.git
 ```
-- grnet
+  - grnet
 
 `./grnet/`
 ```bash
@@ -41,8 +41,8 @@ $ git clone https://github.com/ruotianluo/coco-caption.git
 $ git clone https://github.com/ruotianluo/cider.git
 $ pip install -r requirements.txt
 ```
-- grnet/coco-caption
-- grnet/cider
+  - grnet/coco-caption
+  - grnet/cider
 
 `./grnet/coco-caption/`
 ```bash
@@ -55,16 +55,16 @@ $ bash bash get_google_word2vec_model.sh
 $ wget http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip
 $ unzip caption_datasets.zip
 ```
-- dataset_coco.json
-- dataset_flickr30k.json
-- dataset_flickr8k.json
+  - grnet/data/dataset_coco.json
+  - grnet/data/dataset_flickr30k.json
+  - grnet/data/dataset_flickr8k.json
 
 `./grnet/`
 ```bash
 $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_json data/cocotalk.json --output_h5 data/cocotalk
 ```
-- cocotalk.json
-- cocotalk_label.h5
+  - grnet/data/cocotalk.json
+  - grnet/data/cocotalk_label.h5
 
 <br><br><br>
 
