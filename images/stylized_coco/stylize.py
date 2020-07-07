@@ -11,11 +11,11 @@ from torchvision.utils import save_image
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description='This script applies the AdaIN style transfer method to arbitrary datasets.')
-parser.add_argument('--content-dir', type=str, default='/media/hdd_8t/dataset/coco/val2014/',
+parser.add_argument('--content-dir', type=str, default='./images/coco/train2014/',
                     help='Directory path to a batch of content images')
-parser.add_argument('--style-dir', type=str,default='/home/temporary/data/imp/',
+parser.add_argument('--style-dir', type=str,default='./images/impressionism/',
                     help='Directory path to a batch of style images')
-parser.add_argument('--output-dir', type=str, default='/home/temporary/data/val_stylized/',
+parser.add_argument('--output-dir', type=str, default='./images/stylized_coco/train2014/',
                     help='Directory to save the output images')
 parser.add_argument('--num-styles', type=int, default=1, help='Number of styles to \
                         create for each image (default: 1)')
@@ -59,7 +59,7 @@ def main():
     # set content and style directories
     content_dir = Path(args.content_dir)
     style_dir = Path(args.style_dir)
-    style_dir = style_dir.resolve()
+    style_dir = style_dir.resolve();    print('* dmd', style_dir)
     output_dir = Path(args.output_dir)
     output_dir = output_dir.resolve()
     assert style_dir.is_dir(), 'Style directory not found'
