@@ -34,6 +34,8 @@ $ git clone https://github.com/ailever/grnet.git
 ```
   - grnet
 
+
+<br><br>
 `./grnet/`
 ```bash
 $ cd grnet
@@ -44,12 +46,16 @@ $ pip install -r requirements.txt
   - grnet/coco-caption
   - grnet/cider
 
+
+<br><br>
 `./grnet/coco-caption/`
 ```bash
 $ bash get_stanford_models.sh
 $ bash bash get_google_word2vec_model.sh
 ```
 
+
+<br><br>
 `./grnet/data/`
 ```
 $ wget http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip
@@ -59,6 +65,8 @@ $ unzip caption_datasets.zip
   - grnet/data/dataset_flickr30k.json
   - grnet/data/dataset_flickr8k.json
 
+
+<br><br>
 `./grnet/`
 ```bash
 $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_json data/cocotalk.json --output_h5 data/cocotalk
@@ -66,8 +74,7 @@ $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_j
   - grnet/data/cocotalk.json
   - grnet/data/cocotalk_label.h5
 
-<br><br><br>
-
+<br><br>
 ### package
 ```bash
 pip install gensim
