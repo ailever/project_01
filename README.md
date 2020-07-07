@@ -3,7 +3,6 @@
 ## Table of contents
 
 - Implementation
-  - Directory structure
   - 1. Download & Installation
   - 2. Prepare dataset
 - Related work
