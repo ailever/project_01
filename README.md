@@ -32,6 +32,7 @@
 ```bash
 $ git clone https://github.com/ailever/grnet.git
 ```
+- grnet
 
 `./grnet/`
 ```bash
@@ -40,6 +41,8 @@ $ git clone https://github.com/ruotianluo/coco-caption.git
 $ git clone https://github.com/ruotianluo/cider.git
 $ pip install -r requirements.txt
 ```
+- grnet/coco-caption
+- grnet/cider
 
 `./grnet/coco-caption/`
 ```bash
