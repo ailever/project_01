@@ -68,7 +68,8 @@ $ unzip val2014.zip
 ### 2. Prepare dataset
 `./grnet/`
 ```bash
-$ 
+$ python scripts/stylize.py --content-dir ./images/coco/train2014/ --output-dir ./images/stylized_coco/train2014/
+$ python scripts/stylize.py --content-dir ./images/coco/val2014/ --output-dir ./images/stylized_coco/val2014/
 ```
   - grnet/images/stylized_coco/train2014
   - grnet/images/stylized_coco/val2014
