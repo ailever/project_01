@@ -13,13 +13,7 @@
 
 ## Implemetation
 
-### Directory structure
-- grnet
-  - coco-caption
-  - cider
-  - data
-
-### Download links
+### Download & Installation
 - image source : https://www.wikiart.org/
 - tensorflow tutorial : https://www.tensorflow.org/tutorials/text/image_captioning
 - captioning metrics : https://github.com/wangleihitcs/CaptionMetrics
@@ -66,7 +60,10 @@ $ mkdir imagenet_weights && wget https://download.pytorch.org/models/resnet101-5
   - grnet/data/dataset_flickr8k.json
   - grnet/data/imagenet_weights/resnet101.pth
 
+
 <br><br>
+
+### Prepare data
 `./grnet/`
 ```bash
 $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_json data/cocotalk.json --output_h5 data/cocotalk
@@ -74,12 +71,19 @@ $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_j
   - grnet/data/cocotalk.json
   - grnet/data/cocotalk_label.h5
 
+
 <br><br>
-### package
 ```bash
-pip install gensim
-pip install pyemd
+$ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_dir data/cocotalk --images_root images/coco
+$ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_dir data/stylized_cocotalk --images_root images/stylized_coco
 ```
+  - data/cocotalk_fc
+  - data/cocotalk_att
+  - data/stylized_cocotalk_fc
+  - data/stylized_cocotalk_att
+
+<br><br>
+
 <br><br><br>
 
 ## Related work
