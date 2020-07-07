@@ -65,7 +65,8 @@ $ unzip val2014.zip
   - grnet/images/coco/val2014
 
 <br><br>
-`./grnet/images/stylized_coco/`
+### 2. Prepare dataset
+`./grnet/`
 ```bash
 $ 
 ```
@@ -73,7 +74,7 @@ $
   - grnet/images/stylized_coco/val2014
 
 <br><br>
-### 2. Prepare dataset
+
 `./grnet/`
 ```bash
 $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_json data/cocotalk.json --output_h5 data/cocotalk
