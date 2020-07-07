@@ -1,4 +1,4 @@
-id="paper_head2"
+id="paper_head"
 if [ ! -f log/log_$id/infos_$id.pkl ]; then
 start_from=""
 else
