@@ -58,6 +58,9 @@ class MultiHeadedDotAttention(nn.Module):
 
     
     def forward(self, query, value, key, mask=None):
+        """
+        [debug] query : torch.Size([50, 196, 1024])
+        """
         if mask is not None:
             if len(mask.size()) == 2:
                 mask = mask.unsqueeze(-2)
@@ -100,6 +103,9 @@ class MultiHeadedDotAttention(nn.Module):
         if single_query:
             query = query.squeeze(1)
             x = x.squeeze(1)
+        """
+        [debug] x : torch.Size([50, 196, 1024])
+        """
         return x
 
 class AoA_Refiner_Layer(nn.Module):
@@ -114,13 +120,14 @@ class AoA_Refiner_Layer(nn.Module):
         self.size = size
     
     def forward(self, x, mask):
-        x = self.sublayer[0](x, lambda x: self.self_attn(x, x, x, mask))
+        x = self.sublayer[0](x, lambda x: self.self_attn(x, x, x, attn_mask=mask)[0])
         return self.sublayer[-1](x, self.feed_forward) if self.use_ff else x
 
 class AoA_Refiner_Core(nn.Module):
     def __init__(self, opt):
         super(AoA_Refiner_Core, self).__init__()
-        attn = MultiHeadedDotAttention(opt.num_heads, opt.rnn_size, project_k_v=1, scale=opt.multi_head_scale, do_aoa=opt.refine_aoa, norm_q=0, dropout_aoa=getattr(opt, 'dropout_aoa', 0.3), gsp=opt.gsp)
+        attn = nn.MultiheadAttention(embed_dim=opt.rnn_size, num_heads=opt.num_heads)
+        #attn = MultiHeadedDotAttention(opt.num_heads, opt.rnn_size, project_k_v=1, scale=opt.multi_head_scale, do_aoa=opt.refine_aoa, norm_q=0, dropout_aoa=getattr(opt, 'dropout_aoa', 0.3), gsp=opt.gsp)
         layer = AoA_Refiner_Layer(opt.rnn_size, attn, PositionwiseFeedForward(opt.rnn_size, 2048, 0.1) if opt.use_ff else None, 0.1)
         self.layers = clones(layer, 6)
         self.norm = LayerNorm(layer.size)
