@@ -14,7 +14,7 @@ import misc.utils as utils
 
 from .AttModel import pack_wrapper, AttModel, Attention
 from .TransformerModel import LayerNorm, attention, TransformerAttention, clones, SublayerConnection, PositionwiseFeedForward
-
+from .GramSchmidt import GramSchmidt
 
 
 class MultiHeadedDotAttention(nn.Module):
@@ -161,12 +161,7 @@ class AoA_Decoder_Core(nn.Module):
             # Base linear layer
             self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, opt.rnn_size), nn.ReLU())
 
-        # if opt.use_multi_head == 1: # TODO, not implemented for now           
-        #     self.attention = MultiHeadedAddAttention(opt.num_heads, opt.d_model, scale=opt.multi_head_scale)
-        if opt.use_multi_head == 2:            
-            self.attention = MultiHeadedDotAttention(opt.num_heads, opt.rnn_size, project_k_v=0, scale=opt.multi_head_scale, use_output_layer=0, do_aoa=0, norm_q=1, gsp=opt.gsp)
-        else:            
-            self.attention = Attention(opt)
+        self.attention = Attention(opt)
 
         if self.use_ctx_drop:
             self.ctx_drop = nn.Dropout(self.drop_prob_lm)        
@@ -177,10 +172,7 @@ class AoA_Decoder_Core(nn.Module):
         # state[0][1] is the context vector at the last step
         h_att, c_att = self.att_lstm(torch.cat([xt, mean_feats + self.ctx_drop(state[0][1])], 1), (state[0][0], state[1][0]))
 
-        if self.use_multi_head == 2:
-            att = self.attention(h_att, p_att_feats.narrow(2, 0, self.multi_head_scale * self.d_model), p_att_feats.narrow(2, self.multi_head_scale * self.d_model, self.multi_head_scale * self.d_model), att_masks)
-        else:
-            att = self.attention(h_att, att_feats, p_att_feats, att_masks)
+        att = self.attention(h_att, att_feats, p_att_feats, att_masks)
 
         ctx_input = torch.cat([att, h_att], 1)
         if self.decoder_type == 'LSTM':
@@ -197,79 +189,6 @@ class AoA_Decoder_Core(nn.Module):
 
         output = self.out_drop(output)
         return output, state
-
-
-
-# 2-dimensional
-class GramSchmidt02(nn.Module):
-    def projection(self, x, y):
-        z1 = torch.einsum('l,kl->k', [x,y])
-        z2 = torch.einsum('kl,kl->k', [y,y])
-        z = z1.div(z2)
-        return torch.einsum('k,kl->l', [z,y])
-
-    def forward(self, x):
-        for i in range(1, x.size(-2)):
-            x[i,:].sub_(self.projection(x[i,:], x[0:i,:]).detach())
-        z = torch.einsum('kl,kl->k', [x,x])
-        z = torch.div(torch.tensor(1.), torch.sqrt(z))
-        x = torch.einsum('k,kl->kl', [z,x])
-        #x = x / x.norm(dim=2, keepdim=True).detach()
-        return x
-
-
-# 3-dimensional
-class GramSchmidt03(nn.Module):
-    def projection(self, x, y):
-        z1 = torch.einsum('il,ikl->ik', [x,y])
-        z2 = torch.einsum('ikl,ikl->ik', [y,y])
-        z = z1.div(z2)
-        return torch.einsum('ik,ikl->il', [z,y])
-
-    def forward(self, x):
-        for i in range(1, x.size(-2)):
-            x[:,i,:].sub_(self.projection(x[:,i,:], x[:,0:i,:]).detach())
-        z = torch.einsum('ikl,ikl->ik', [x,x])
-        z = torch.div(torch.tensor(1.), torch.sqrt(z))
-        x = torch.einsum('ik,ikl->ikl', [z,x])
-        return x
-
-
-# 4-dimensional
-class GramSchmidt04(nn.Module):
-    def projection(self, x, y):
-        z1 = torch.einsum('ijl,ijkl->ijk', [x,y])
-        z2 = torch.einsum('ijkl,ijkl->ijk', [y,y])
-        z = z1.div(z2)
-        return torch.einsum('ijk,ijkl->ijl', [z,y])
-
-    def forward(self, x):
-        for i in range(1, x.size(-2)):
-            x[:,:,i,:].sub_(self.projection(x[:,:,i,:], x[:,:,0:i,:]).detach())
-        z = torch.einsum('ijkl,ijkl->ijk', [x,x])
-        z = torch.div(torch.tensor(1.), torch.sqrt(z))
-        x = torch.einsum('ijk,ijkl->ijkl', [z,x])
-        return x
-
-
-class GramSchmidt(nn.Module):
-    def __init__(self):
-        super(GramSchmidt, self).__init__()
-        self.gramschmidt02 = GramSchmidt02()
-        self.gramschmidt03 = GramSchmidt03()
-        self.gramschmidt04 = GramSchmidt04()
-
-    def forward(self, x):
-        dim = len(x.size());                             print(f'x : {x.size()}')
-        x = getattr(self, 'gramschmidt0'+str(dim))(x);   print(f'x : {x.size()}')
-        
-        # validation
-        for i in range(x.size(-2)):
-            if dim == 2   : print((x[0]*x[i]).sum())
-            elif dim == 3 : print((x[0][0]*x[0][i]).sum())
-            elif dim == 4 : print((x[0][0][0]*x[0][0][i]).sum())
-
-        return x
 
 
 
