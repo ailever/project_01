@@ -1,0 +1,34 @@
+/opt/conda/lib/python3.6/site-packages/torch/nn/_reduction.py:43: UserWarning: size_average and reduce args will be deprecated, please use reduction='none' instead.
+  warnings.warn(warning.format(ret))
+Traceback (most recent call last):
+  File "train.py", line 288, in <module>
+    train(opt)
+  File "train.py", line 182, in train
+    model_out = dp_lw_model(fc_feats, att_feats, labels, masks, att_masks, data['gts'], torch.arange(0, len(data['gts'])), sc_flag)
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/parallel/data_parallel.py", line 153, in forward
+    return self.module(*inputs[0], **kwargs[0])
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/local_host/docker_containers/paper/grnet/misc/loss_wrapper.py", line 20, in forward
+    loss = self.crit(self.model(fc_feats, att_feats, labels, att_masks), labels[:,1:], masks[:,1:]);
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/local_host/docker_containers/paper/grnet/models/CaptionModel.py", line 34, in forward
+    return getattr(self, '_'+mode)(*args, **kwargs)
+  File "/local_host/docker_containers/paper/grnet/models/AttModel.py", line 149, in _forward
+    output, state = self.get_logprobs_state(it, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks, state)
+  File "/local_host/docker_containers/paper/grnet/models/AttModel.py", line 158, in get_logprobs_state
+    output, state = self.core(xt, fc_feats, att_feats, p_att_feats, state, att_masks)
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/local_host/docker_containers/paper/grnet/models/BertAoAModel.py", line 306, in forward
+    att = self.attention(h_att.unsqueeze(1), att_feats, p_att_feats, attn_mask=att_masks)[0]
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/activation.py", line 845, in forward
+    attn_mask=attn_mask)
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/functional.py", line 3782, in multi_head_attention_forward
+    assert key.size() == value.size()
+AssertionError

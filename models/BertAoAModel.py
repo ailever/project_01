@@ -242,22 +242,6 @@ class TransformerEncoderLayer(nn.Module):
         return src
 
 
-class GramSchmidt(nn.Module):
-    def projection(self, x, y):
-        z1 = torch.einsum('il,ikl->ik', [x,y])
-        z2 = torch.einsum('ikl,ikl->ik', [y,y])
-        z2 = torch.div(torch.tensor(1.), z2)
-        z = torch.einsum('ik,ik->ik', [z1,z2])
-        return torch.einsum('ik,ikl->il', [z,y])
-
-    def forward(self, x):
-        for i in range(1, x.size(1)):
-            x[:,i,:].sub_(self.projection(x[:,i,:], x[:,0:i,:]).detach())
-        z = torch.einsum('ikl,ikl->ik', [x,x])
-        z = torch.div(torch.tensor(1.), torch.sqrt(z))
-        x = torch.einsum('ik,ikl->ikl', [z,x])
-        #x = x / x.norm(dim=2, keepdim=True).detach()
-        return x
     
 
 
@@ -294,10 +278,8 @@ class BertAoA_Decoder_Core(nn.Module):
 
         # if opt.use_multi_head == 1: # TODO, not implemented for now           
         #     self.attention = MultiHeadedAddAttention(opt.num_heads, opt.d_model, scale=opt.multi_head_scale)
-        if opt.use_multi_head == 2:            
-            self.attention = MultiHeadedDotAttention(opt.num_heads, opt.rnn_size, project_k_v=0, scale=opt.multi_head_scale, use_output_layer=0, do_aoa=0, norm_q=1, gsp=opt.gsp)
-        else:            
-            self.attention = Attention(opt)
+
+        self.attention = nn.MultiheadAttention(embed_dim=opt.rnn_size, num_heads=opt.num_heads)
 
         if self.use_ctx_drop:
             self.ctx_drop = nn.Dropout(self.drop_prob_lm)        
@@ -313,13 +295,20 @@ class BertAoA_Decoder_Core(nn.Module):
         h_att, c_att = self.att_lstm(x, h)
         
         """
-        if self.use_multi_head == 2:
-            att = self.attention(h_att, p_att_feats.narrow(2, 0, self.multi_head_scale * self.d_model), p_att_feats.narrow(2, self.multi_head_scale * self.d_model, self.multi_head_scale * self.d_model), att_masks)
-        else:
-            att = self.attention(h_att, att_feats, p_att_feats, att_masks)
+        [debug] h_att : torch.Size([50, 1024])
+        [debug] att_feats : torch.Size([50, 196, 1024])
+        [debug] p_att_feats : torch.Size([50, 196, 1024])
         """
-
-        ctx_input = torch.cat([xt, h_att], 1)
+        print(f'[debug] h_att : {h_att.size()}')
+        print(f'[debug] att_feats : {att_feats.size()}')
+        print(f'[debug] p_att_feats : {p_att_feats.size()}')
+        
+        att = self.attention(h_att.unsqueeze(1), att_feats, p_att_feats, attn_mask=att_masks)[0]
+        """
+        [debug] att : torch.Size([50, 1, 1024])
+        """
+        print(f'[debug] att : {att.size()}')
+        ctx_input = torch.cat([att.squeeze(1), h_att], 1)
         if self.decoder_type == 'LSTM':
             output, c_logic = self.att2ctx(ctx_input, (state[0][1], state[1][1]))
             state = (torch.stack((h_att, output)), torch.stack((c_att, c_logic)))
@@ -352,10 +341,8 @@ class BertAoAModel(AttModel):
         self.num_layers = 2
         # mean pooling
         self.use_mean_feats = getattr(opt, 'mean_feats', 1)
-        if opt.use_multi_head == 2:
-            del self.ctx2att
-            self.ctx2att = nn.Linear(opt.rnn_size, 2 * opt.multi_head_scale * opt.rnn_size)
-
+        self.ctx2att = nn.Linear(opt.rnn_size, opt.rnn_size)
+        #self.ctx2att = nn.Linear(opt.rnn_size, 2 * opt.rnn_size)
         if self.use_mean_feats:
             del self.fc_embed
         if opt.refine:
