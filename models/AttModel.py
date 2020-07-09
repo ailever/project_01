@@ -94,6 +94,17 @@ class AttModel(CaptionModel):
     
 
     def _forward(self, fc_feats, att_feats, seq, att_masks=None):
+        """
+	[debug] fc_feats : torch.Size([50, 2048]), torch.cuda.FloatTensor
+	[debug] att_feats : torch.Size([50, 196, 2048]), torch.cuda.FloatTensor
+	[debug] seq : torch.Size([50, 18]), torch.cuda.LongTensor
+	[debug] state[0] : torch.Size([2, 50, 1024])
+	[debug] state[1] : torch.Size([2, 50, 1024])
+	[debug] outputs : torch.Size([50, 17, 9488])
+	[debug] p_fc_feats : torch.Size([50, 1024])
+	[debug] p_att_feats : torch.Size([50, 196, 1024])
+	[debug] pp_att_feats : torch.Size([50, 196, 1024])
+        """
         batch_size = fc_feats.size(0)
         state = self.init_hidden(batch_size)
 
@@ -102,38 +113,36 @@ class AttModel(CaptionModel):
         # Prepare the features
         p_fc_feats, p_att_feats, pp_att_feats, p_att_masks = self._prepare_feature(fc_feats, att_feats, att_masks)
         # pp_att_feats is used for attention, we cache it in advance to reduce computation cost
-
+        
+	"""
         for i in range(seq.size(1) - 1):
-            if self.training and i >= 1 and self.ss_prob > 0.0: # otherwiste no need to sample
-                sample_prob = fc_feats.new(batch_size).uniform_(0, 1)
-                sample_mask = sample_prob < self.ss_prob
-                if sample_mask.sum() == 0:
-                    it = seq[:, i].clone()
-                else:
-                    sample_ind = sample_mask.nonzero().view(-1)
-                    it = seq[:, i].data.clone()
-                    #prob_prev = torch.exp(outputs[-1].data.index_select(0, sample_ind)) # fetch prev distribution: shape Nx(M+1)
-                    #it.index_copy_(0, sample_ind, torch.multinomial(prob_prev, 1).view(-1))
-                    # prob_prev = torch.exp(outputs[-1].data) # fetch prev distribution: shape Nx(M+1)
-                    prob_prev = torch.exp(outputs[:, i-1].detach()) # fetch prev distribution: shape Nx(M+1)
-                    it.index_copy_(0, sample_ind, torch.multinomial(prob_prev, 1).view(-1).index_select(0, sample_ind))
-            else:
-                it = seq[:, i].clone()          
-            # break if all the sequences end
-            if i >= 1 and seq[:, i].sum() == 0:
-                break
+            #[debug] torch.Size([50]), torch.cuda.LongTensor
+            it = seq[:, i].clone()                      # aoapaer : w0         
+            if i >= 1 and seq[:, i].sum() == 0 : break  # break if all the sequences end
 
             output, state = self.get_logprobs_state(it, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks, state)
             outputs[:, i] = output
+	"""
+        it = seq.clone()
+        
 
         return outputs
 
+
     def get_logprobs_state(self, it, fc_feats, att_feats, p_att_feats, att_masks, state):
+        """
+	[debug] xt : torch.Size([50, 1024])
+	[debug] fc_feats : torch.Size([50, 1024])
+	[debug] att_feats : torch.Size([50, 196, 1024])
+	[debug] p_att_feats : torch.Size([50, 196, 1024])
+        [debug] output : torch.Size([50, 1024])
+        [debug] state[0] : torch.Size([2, 50, 1024])
+        [debug] state[1] : torch.Size([2, 50, 1024])
+        """
         # 'it' contains a word index
         xt = self.embed(it)
-
         output, state = self.core(xt, fc_feats, att_feats, p_att_feats, state, att_masks)
-        logprobs = F.log_softmax(self.logit(output), dim=1)
+        logprobs = F.log_softmax(self.logit(output), dim=-1)
 
         return logprobs, state
 
