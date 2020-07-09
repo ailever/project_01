@@ -13,7 +13,6 @@ import math
 import misc.utils as utils
 
 from .AttModel import pack_wrapper, AttModel
-#from .AttModel import pack_wrapper, AttModel, Attention
 from .TransformerModel import LayerNorm, attention, TransformerAttention, clones, SublayerConnection, PositionwiseFeedForward
 from .GramSchmidt import GramSchmidt
 
