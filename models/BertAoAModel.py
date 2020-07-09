@@ -12,7 +12,8 @@ import copy
 import math
 import misc.utils as utils
 
-from .AttModel import pack_wrapper, AttModel, Attention
+from .AttModel import pack_wrapper, AttModel
+#from .AttModel import pack_wrapper, AttModel, Attention
 from .TransformerModel import LayerNorm, attention, TransformerAttention, clones, SublayerConnection, PositionwiseFeedForward
 from .GramSchmidt import GramSchmidt
 
@@ -136,59 +137,6 @@ class AoA_Refiner_Core(nn.Module):
         for layer in self.layers:
             x = layer(x, mask)
         return self.norm(x)
-
-class AoA_Decoder_Core(nn.Module):
-    def __init__(self, opt):
-        super(AoA_Decoder_Core, self).__init__()
-        self.drop_prob_lm = opt.drop_prob_lm
-        self.d_model = opt.rnn_size
-        self.use_multi_head = opt.use_multi_head
-        self.multi_head_scale = opt.multi_head_scale
-        self.use_ctx_drop = getattr(opt, 'ctx_drop', 0)
-        self.out_res = getattr(opt, 'out_res', 0)
-        self.decoder_type = getattr(opt, 'decoder_type', 'AoA')
-        self.att_lstm = nn.LSTMCell(opt.input_encoding_size + opt.rnn_size, opt.rnn_size) # we, fc, h^2_t-1
-        self.out_drop = nn.Dropout(self.drop_prob_lm)
-        self.gsp = opt.gsp
-
-        if self.decoder_type == 'AoA':
-            # AoA layer
-            self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
-        elif self.decoder_type == 'LSTM':
-            # LSTM layer
-            self.att2ctx = nn.LSTMCell(self.d_model * opt.multi_head_scale + opt.rnn_size, opt.rnn_size)
-        else:
-            # Base linear layer
-            self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, opt.rnn_size), nn.ReLU())
-
-        self.attention = Attention(opt)
-
-        if self.use_ctx_drop:
-            self.ctx_drop = nn.Dropout(self.drop_prob_lm)        
-        else:
-            self.ctx_drop = lambda x :x
-
-    def forward(self, xt, mean_feats, att_feats, p_att_feats, state, att_masks=None):
-        # state[0][1] is the context vector at the last step
-        h_att, c_att = self.att_lstm(torch.cat([xt, mean_feats + self.ctx_drop(state[0][1])], 1), (state[0][0], state[1][0]))
-
-        att = self.attention(h_att, att_feats, p_att_feats, att_masks)
-
-        ctx_input = torch.cat([att, h_att], 1)
-        if self.decoder_type == 'LSTM':
-            output, c_logic = self.att2ctx(ctx_input, (state[0][1], state[1][1]))
-            state = (torch.stack((h_att, output)), torch.stack((c_att, c_logic)))
-        else:
-            output = self.att2ctx(ctx_input)
-            # save the context vector to state[0][1]
-            state = (torch.stack((h_att, output)), torch.stack((c_att, state[1][1])))
-
-        if self.out_res:
-            # add residual connection
-            output = output + h_att
-
-        output = self.out_drop(output)
-        return output, state
 
 
 

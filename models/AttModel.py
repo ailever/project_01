@@ -15,6 +15,24 @@ bad_endings = ['a','an','the','in','for','at','of','with','before','after','on',
 bad_endings += ['the']
 
 
+def sort_pack_padded_sequence(input, lengths):
+    sorted_lengths, indices = torch.sort(lengths, descending=True)
+    tmp = pack_padded_sequence(input[indices], sorted_lengths, batch_first=True)
+    inv_ix = indices.clone()
+    inv_ix[indices] = torch.arange(0,len(indices)).type_as(inv_ix)
+    return tmp, inv_ix
+
+def pad_unsort_packed_sequence(input, inv_ix):
+    tmp, _ = pad_packed_sequence(input, batch_first=True)
+    tmp = tmp[inv_ix]
+    return tmp
+
+def pack_wrapper(module, att_feats, att_masks):
+    if att_masks is not None:
+        packed, inv_ix = sort_pack_padded_sequence(att_feats, att_masks.data.long().sum(1))
+        return pad_unsort_packed_sequence(PackedSequence(module(packed[0]), packed[1]), inv_ix)
+    else:
+        return module(att_feats)
 
 class AttModel(CaptionModel):
     def __init__(self, opt):
