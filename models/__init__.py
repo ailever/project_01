@@ -10,7 +10,6 @@ from .BertAoAModel import BertAoAModel
 
 
 def setup(opt):
-    #model = AoAModel(opt)
     model = BertAoAModel(opt)
 
     # check compatibility if training is continued from previously saved model

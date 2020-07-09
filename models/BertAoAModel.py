@@ -15,6 +15,7 @@ import misc.utils as utils
 from .AttModel import pack_wrapper, AttModel
 from .BertAoAModule import SublayerConnection, PositionwiseFeedForward, clones, GramSchmidt
 
+
 class AoA_Refiner_Layer(nn.Module):
     def __init__(self, size, self_attn, feed_forward, dropout):
         super(AoA_Refiner_Layer, self).__init__()
