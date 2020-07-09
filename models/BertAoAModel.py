@@ -298,16 +298,19 @@ class BertAoA_Decoder_Core(nn.Module):
         [debug] h_att : torch.Size([50, 1024])
         [debug] att_feats : torch.Size([50, 196, 1024])
         [debug] p_att_feats : torch.Size([50, 196, 1024])
-        """
+        
         print(f'[debug] h_att : {h_att.size()}')
         print(f'[debug] att_feats : {att_feats.size()}')
         print(f'[debug] p_att_feats : {p_att_feats.size()}')
+        """
         
         att = self.attention(h_att.unsqueeze(1), att_feats, p_att_feats, attn_mask=att_masks)[0]
+        
         """
         [debug] att : torch.Size([50, 1, 1024])
-        """
+        
         print(f'[debug] att : {att.size()}')
+        """
         ctx_input = torch.cat([att.squeeze(1), h_att], 1)
         if self.decoder_type == 'LSTM':
             output, c_logic = self.att2ctx(ctx_input, (state[0][1], state[1][1]))
