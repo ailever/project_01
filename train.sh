@@ -41,7 +41,6 @@ CUDA_VISIBLE_DEVICES=0 python train.py --id $id \
     --scheduled_sampling_increase_every 5 \
     --scheduled_sampling_max_prob 0.5 \
     --learning_rate_decay_every 3 \
-    --gsp 0 \
 	--nhead 2 \
 	--nlayer 6
 

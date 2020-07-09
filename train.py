@@ -33,15 +33,9 @@ def add_summary_value(writer, key, value, iteration):
         writer.add_scalar(key, value, iteration)
 
 def train(opt):
-    print(f"##### option info ######\
-            start_from,model : {opt.start_from},\
-            max_epoch : {opt.max_epochs},\
-            caption_model : {opt.caption_model},\
-            decoder_type : {opt.decoder_type},\
-            nlayer : {opt.nlayer},\
-            nhead : {opt.nhead},\
-            gsp : {opt.gsp},\
-            rnn_size : {opt.rnn_size}") ###
+    for i in vars(opt) : print(f'* opt.{i} : {getattr(opt, i)}')
+    print('*====================== INFO ======================*')
+
     # Deal with feature things before anything
     opt.use_fc, opt.use_att = utils.if_use_feat(opt.caption_model)
     if opt.use_box: opt.att_feat_size = opt.att_feat_size + 5

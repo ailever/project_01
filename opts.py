@@ -6,6 +6,8 @@ def parse_opt():
                     help='path to the json file containing additional info and vocab')
     parser.add_argument('--nlayer', type=int, default=6,
                     help='path to the json file containing additional info and vocab')
+    parser.add_argument('--gramschmidt', type=bool, default=None,
+                    help='path to the json file containing additional info and vocab')
 
     # Data input settings
     parser.add_argument('--input_json', type=str, default='data/coco.json',
@@ -79,9 +81,6 @@ def parse_opt():
                     help='warm up the learing rate?')
     parser.add_argument('--acc_steps', type=int, default=1,
                     help='accumulation steps')
-    # grnet
-    parser.add_argument('--gsp', type=int, default=0,
-                    help='gram_schmidt_process')
 
     # feature manipulation
     parser.add_argument('--norm_att_feat', type=int, default=0,

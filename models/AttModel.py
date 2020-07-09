@@ -11,6 +11,7 @@ from torch.nn.utils.rnn import PackedSequence, pack_padded_sequence, pad_packed_
 import misc.utils as utils
 from .CaptionModel import CaptionModel
 
+
 bad_endings = ['a','an','the','in','for','at','of','with','before','after','on','upon','near','to','is','are','am']
 bad_endings += ['the']
 
@@ -33,6 +34,7 @@ def pack_wrapper(module, att_feats, att_masks):
         return pad_unsort_packed_sequence(PackedSequence(module(packed[0]), packed[1]), inv_ix)
     else:
         return module(att_feats)
+
 
 class AttModel(CaptionModel):
     def __init__(self, opt):

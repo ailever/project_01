@@ -15,6 +15,84 @@ import misc.utils as utils
 from .AttModel import pack_wrapper, AttModel
 from .BertAoAModule import SublayerConnection, PositionwiseFeedForward, clones, GramSchmidt
 
+"""opt INFO
+* opt.nhead : 2
+* opt.nlayer : 6
+* opt.input_json : data/cocotalk.json
+* opt.input_fc_dir : data/stylized_cocotalk_fc
+* opt.input_att_dir : data/stylized_cocotalk_att
+* opt.input_box_dir : data/cocotalk_box
+* opt.input_label_h5 : data/cocotalk_label.h5
+* opt.start_from : log/log_paper_head
+* opt.cached_tokens : coco-train-idxs
+* opt.caption_model : aoa
+* opt.rnn_size : 1024
+* opt.num_layers : 2
+* opt.rnn_type : lstm
+* opt.input_encoding_size : 1024
+* opt.att_hid_size : 512
+* opt.fc_feat_size : 2048
+* opt.att_feat_size : 2048
+* opt.logit_layers : 1
+* opt.use_bn : 0
+* opt.mean_feats : 1
+* opt.refine : 1
+* opt.refine_aoa : 1
+* opt.use_ff : 0
+* opt.dropout_aoa : 0.3
+* opt.ctx_drop : 1
+* opt.decoder_type : BertAoA
+* opt.use_multi_head : 2
+* opt.num_heads : 8
+* opt.multi_head_scale : 1
+* opt.use_warmup : 0
+* opt.acc_steps : 1
+* opt.norm_att_feat : 0
+* opt.use_box : 0
+* opt.norm_box_feat : 0
+* opt.max_epochs : 1
+* opt.batch_size : 10
+* opt.grad_clip : 0.1
+* opt.drop_prob_lm : 0.5
+* opt.self_critical_after : -1
+* opt.seq_per_img : 5
+* opt.beam_size : 1
+* opt.max_length : 20
+* opt.length_penalty :
+* opt.block_trigrams : 0
+* opt.remove_bad_endings : 0
+* opt.optim : adam
+* opt.learning_rate : 0.0002
+* opt.learning_rate_decay_start : 0
+* opt.learning_rate_decay_every : 3
+* opt.learning_rate_decay_rate : 0.8
+* opt.optim_alpha : 0.9
+* opt.optim_beta : 0.999
+* opt.optim_epsilon : 1e-08
+* opt.weight_decay : 0
+* opt.label_smoothing : 0.2
+* opt.noamopt : False
+* opt.noamopt_warmup : 2000
+* opt.noamopt_factor : 1
+* opt.reduce_on_plateau : False
+* opt.scheduled_sampling_start : 0
+* opt.scheduled_sampling_increase_every : 5
+* opt.scheduled_sampling_increase_prob : 0.05
+* opt.scheduled_sampling_max_prob : 0.5
+* opt.val_images_use : -1
+* opt.save_checkpoint_every : 6000
+* opt.save_history_ckpt : 0
+* opt.checkpoint_path : log/log_paper_head
+* opt.language_eval : 1
+* opt.losses_log_every : 25
+* opt.load_best_score : 1
+* opt.id : paper_head
+* opt.train_only : 0
+* opt.cider_reward_weight : 1
+* opt.bleu_reward_weight : 0
+"""
+
+
 
 class AoA_Refiner_Layer(nn.Module):
     def __init__(self, size, self_attn, feed_forward, dropout):
@@ -80,8 +158,7 @@ class TransformerEncoderLayer(nn.Module):
         self.activation = F.relu if activation == "relu" else F.gelu
 
     def __setstate__(self, state):
-        if 'activation' not in state:
-            state['activation'] = F.relu
+        if 'activation' not in state : state['activation'] = F.relu
         super(TransformerEncoderLayer, self).__setstate__(state)
 
     def forward(self, src, src_mask=None, src_key_padding_mask=None):
@@ -95,9 +172,6 @@ class TransformerEncoderLayer(nn.Module):
 
 
     
-
-
-
 class BertAoA_Decoder_Core(nn.Module):
     def __init__(self, opt):
         super(BertAoA_Decoder_Core, self).__init__()
@@ -112,7 +186,6 @@ class BertAoA_Decoder_Core(nn.Module):
 
         self.att_lstm = nn.LSTMCell(opt.input_encoding_size + opt.rnn_size, opt.rnn_size) # we, fc, h^2_t-1
         self.out_drop = nn.Dropout(self.drop_prob_lm)
-        self.gsp = opt.gsp
         self.encoder_layer = nn.TransformerEncoderLayer(d_model=1024, nhead=opt.nhead)
         
         self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
@@ -141,30 +214,27 @@ class BertAoA_Decoder_Core(nn.Module):
     def forward(self, xt, mean_feats, att_feats, p_att_feats, state, att_masks=None):
         # state[0][1] is the context vector at the last step
         """
-	                                                                                            [debug] xt : torch.Size([50, 1024])
-	                                                                                            [debug] mean_feats : torch.Size([50, 1024])
-                                                                                                    [debug] state[0][1] : torch.Size([50, 1024])"""
+	[debug] xt : torch.Size([50, 1024])
+	[debug] mean_feats : torch.Size([50, 1024])
+        [debug] state[0][1] : torch.Size([50, 1024])
+	[debug] x : torch.Size([50, 2048])
+	[debug] h[0] : torch.Size([50, 1024])
+	[debug] h[1] : torch.Size([50, 1024])
+        [debug] h_att : torch.Size([50, 1024])
+        [debug] c_att : torch.Size([50, 1024])
+        [debug] att_feats : torch.Size([50, 196, 1024])
+        [debug] p_att_feats : torch.Size([50, 196, 1024])
+        [debug] att : torch.Size([50, 1, 1024])
+        [debug] ctx_input : torch.Size([50, 2048])
+
+        """
         x = torch.cat([xt, mean_feats + self.ctx_drop(state[0][1])], 1)
         h = (state[0][0], state[1][0])
-        """
-	                                                                                            [debug] x : torch.Size([50, 2048])
-	                                                                                            [debug] h[0] : torch.Size([50, 1024])
-	                                                                                            [debug] h[1] : torch.Size([50, 1024])"""
 
         h_att, c_att = self.att_lstm(x, h)
-        """
-                                                                                                    [debug] h_att : torch.Size([50, 1024])
-                                                                                                    [debug] c_att : torch.Size([50, 1024])"""
 
-        """
-                                                                                                    [debug] att_feats : torch.Size([50, 196, 1024])
-                                                                                                    [debug] p_att_feats : torch.Size([50, 196, 1024])"""
         att = self.attention(h_att.unsqueeze(1), att_feats, p_att_feats, attn_mask=att_masks)[0]
-        """
-                                                                                                    [debug] att : torch.Size([50, 1, 1024])"""
         ctx_input = torch.cat([att.squeeze(1), h_att], 1)
-        """
-                                                                                                    [debug] ctx_input : torch.Size([50, 2048])"""
         if self.decoder_type == 'LSTM':
             output, c_logic = self.att2ctx(ctx_input, (state[0][1], state[1][1]))
             state = (torch.stack((h_att, output)), torch.stack((c_att, c_logic)))
