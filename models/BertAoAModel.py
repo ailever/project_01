@@ -287,31 +287,32 @@ class BertAoA_Decoder_Core(nn.Module):
             self.ctx_drop = lambda x :x
 
     def forward(self, xt, mean_feats, att_feats, p_att_feats, state, att_masks=None):
-        
         # state[0][1] is the context vector at the last step
+        """
+	                                                                                            [debug] xt : torch.Size([50, 1024])
+	                                                                                            [debug] mean_feats : torch.Size([50, 1024])
+                                                                                                    [debug] state[0][1] : torch.Size([50, 1024])"""
         x = torch.cat([xt, mean_feats + self.ctx_drop(state[0][1])], 1)
         h = (state[0][0], state[1][0])
-        
+        """
+	                                                                                            [debug] x : torch.Size([50, 2048])
+	                                                                                            [debug] h[0] : torch.Size([50, 1024])
+	                                                                                            [debug] h[1] : torch.Size([50, 1024])"""
+
         h_att, c_att = self.att_lstm(x, h)
-        
         """
-        [debug] h_att : torch.Size([50, 1024])
-        [debug] att_feats : torch.Size([50, 196, 1024])
-        [debug] p_att_feats : torch.Size([50, 196, 1024])
-        
-        print(f'[debug] h_att : {h_att.size()}')
-        print(f'[debug] att_feats : {att_feats.size()}')
-        print(f'[debug] p_att_feats : {p_att_feats.size()}')
+                                                                                                    [debug] h_att : torch.Size([50, 1024])
+                                                                                                    [debug] c_att : torch.Size([50, 1024])"""
+
         """
-        
+                                                                                                    [debug] att_feats : torch.Size([50, 196, 1024])
+                                                                                                    [debug] p_att_feats : torch.Size([50, 196, 1024])"""
         att = self.attention(h_att.unsqueeze(1), att_feats, p_att_feats, attn_mask=att_masks)[0]
-        
         """
-        [debug] att : torch.Size([50, 1, 1024])
-        
-        print(f'[debug] att : {att.size()}')
-        """
+                                                                                                    [debug] att : torch.Size([50, 1, 1024])"""
         ctx_input = torch.cat([att.squeeze(1), h_att], 1)
+        """
+                                                                                                    [debug] ctx_input : torch.Size([50, 2048])"""
         if self.decoder_type == 'LSTM':
             output, c_logic = self.att2ctx(ctx_input, (state[0][1], state[1][1]))
             state = (torch.stack((h_att, output)), torch.stack((c_att, c_logic)))
