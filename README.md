@@ -132,8 +132,8 @@ $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_di
 ```bash
 $ bash train.sh
 ```
-  - log/log_grnet
-  - info/\*.txt
+  - log/log_grnet/
+  - option_info/grnet_\*.txt
   
 <br><br>
 ### 4. Evaluation
