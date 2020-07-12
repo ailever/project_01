@@ -33,8 +33,11 @@ def add_summary_value(writer, key, value, iteration):
         writer.add_scalar(key, value, iteration)
 
 def train(opt):
-    for i in vars(opt) : print(f'* opt.{i} : {getattr(opt, i)}')
+    with open(f'info/{opt.gs_type}_{opt.nhead}_{opt.nlayer}.txt', 'a') as log:
+        for i in vars(opt):
+            log.write(f'{i} : ' + str(getattr(opt, i)) + '\n'); print(f'* opt.{i} : {getattr(opt, i)}')
     print('*====================== INFO ======================*')
+        
 
     # Deal with feature things before anything
     opt.use_fc, opt.use_att = utils.if_use_feat(opt.caption_model)

@@ -6,7 +6,7 @@ def parse_opt():
                     help='path to the json file containing additional info and vocab')
     parser.add_argument('--nlayer', type=int, default=6,
                     help='path to the json file containing additional info and vocab')
-    parser.add_argument('--gs_type', type=bool, default=None,
+    parser.add_argument('--gs_type', type=str, default=None,
                     help='path to the json file containing additional info and vocab')
 
     # Data input settings

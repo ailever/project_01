@@ -179,7 +179,7 @@ class MultiHeadedAttention(nn.Module):
 
 
 class TransformerEncoderLayer(nn.Module):
-    def __init__(self, d_model, nhead, dim_feedforward, dropout):
+    def __init__(self, d_model, nhead, dim_feedforward, dropout, opt=None):
         super(TransformerEncoderLayer, self).__init__()
         """
         :param d_model: hidden size of transformer
@@ -193,12 +193,23 @@ class TransformerEncoderLayer(nn.Module):
         self.input_sublayer = SublayerConnection(size=d_model, dropout=dropout)
         self.output_sublayer = SublayerConnection(size=d_model, dropout=dropout)
         self.dropout = nn.Dropout(p=dropout)
+        if opt.gs_type == 'inner':
+            self.gs_type = opt.gs_type
+            self.gramschmidt = GramSchmidt()
+        else:
+            self.gs_type = None
 
     def forward(self, x, src_mask, context=None, **kwargs):
         if context != None:
+            if self.gs_type == 'inner':
+                context = self.gramschmidt(context)
             x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, context, context, mask=src_mask)[0])
         else:
-            x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, _x, _x, mask=src_mask)[0])
+            if self.gs_type == 'inner': 
+                context = self.gramschmidt(x)
+                x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, context, context, mask=src_mask)[0])
+            else:
+                x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, _x, _x, mask=src_mask)[0])
         x = self.output_sublayer(x, self.feed_forward)
         return self.dropout(x)
 
@@ -232,44 +243,22 @@ class TransformerEncoder(nn.Module):
 class BertAoA_Decoder_Core(nn.Module):
     def __init__(self, opt):
         super(BertAoA_Decoder_Core, self).__init__()
-        self.encoder_layer = TransformerEncoderLayer(d_model=opt.rnn_size, nhead=opt.nhead, dim_feedforward=opt.rnn_size * 4, dropout=opt.drop_prob_lm)
+        self.encoder_layer = TransformerEncoderLayer(d_model=opt.rnn_size, nhead=opt.nhead, dim_feedforward=opt.rnn_size * 4, dropout=opt.drop_prob_lm, opt=opt)
         self.transformer_encoder = TransformerEncoder(self.encoder_layer, num_layers=opt.nlayer)
         self.out_drop = nn.Dropout(opt.drop_prob_lm)
         self.att2ctx = nn.Sequential(nn.Linear(2 * opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
-        if opt.gs_type:
+        if opt.gs_type == 'first' or 'last':
             self.gs_type = opt.gs_type
             self.gramschmidt = GramSchmidt()
         else:
             self.gs_type = None
 
     def forward(self, xt, mean_feats, att_feats, p_att_feats, att_masks=None):
-        # state[0][1] is the context vector at the last step
-        """
-	[debug] xt : torch.Size([50, 18, 1024])
-	[debug] mean_feats : torch.Size([50, 1024])
-        [debug] state[0][1] : torch.Size([50, 1024])
-	[debug] x : torch.Size([50, 2048])
-	[debug] h[0] : torch.Size([50, 1024])
-	[debug] h[1] : torch.Size([50, 1024])
-        [debug] h_att : torch.Size([50, 1024])
-        [debug] c_att : torch.Size([50, 1024])
-        [debug] att_feats : torch.Size([50, 196, 1024])
-        [debug] p_att_feats : torch.Size([50, 196, 1024])
-        [debug] att : torch.Size([50, 1, 1024])
-        [debug] ctx_input : torch.Size([50, 2048])
-
-        """
-        """
-        [debug] xt : torch.Size([50, 18, 1024])
-        [debug] p_att_feats : torch.Size([50, 196, 1024])   
-        """
+        
         if self.gs_type == 'first': xt = self.gramschmidt(xt)
         x = self.transformer_encoder(xt, context=p_att_feats)
         if self.gs_type == 'last': x = self.gramschmidt(x)
-        #x = self.att2ctx(x)
-
-        #x = x + h_att
-        #x = self.out_drop(x)
+        
         return x
 
 

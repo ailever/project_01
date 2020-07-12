@@ -3,4 +3,5 @@ cider/
 coco-caption/
 data/
 log/
+info/
 *.pyc

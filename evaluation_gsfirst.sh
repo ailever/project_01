@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=0 python eval.py \
+CUDA_VISIBLE_DEVICES=1 python eval.py \
 	--model log/log_paper/model.pth \
 	--infos_path log/log_paper/infos_paper.pkl \
 	--dump_images 0 \

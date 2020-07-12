@@ -1,11 +1,11 @@
-id="paper"
+id="paper_gsinner"
 if [ ! -f log/log_$id/infos_$id.pkl ]; then
 start_from=""
 else
 start_from="--start_from log/log_$id"
 fi
 echo $start_from
-CUDA_VISIBLE_DEVICES=0 python train.py --id $id \
+CUDA_VISIBLE_DEVICES=3 python train.py --id $id \
     --caption_model aoa \
     --refine 1 \
     --refine_aoa 1 \
@@ -34,7 +34,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py --id $id \
     --scheduled_sampling_start 0 \
     --checkpoint_path log/log_$id  \
     $start_from \
-    --save_checkpoint_every 20 \
+    --save_checkpoint_every 6000 \
     --language_eval 1 \
     --val_images_use -1 \
     --max_epochs 1 \
@@ -42,7 +42,8 @@ CUDA_VISIBLE_DEVICES=0 python train.py --id $id \
     --scheduled_sampling_max_prob 0.5 \
     --learning_rate_decay_every 3 \
 	--nhead 2 \
-	--nlayer 6
+	--nlayer 6 \
+	--gs_type inner
 
     #$start_from \
     #--input_fc_dir  data/cocobu_fc \

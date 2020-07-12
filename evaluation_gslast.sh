@@ -1,6 +1,6 @@
-CUDA_VISIBLE_DEVICES=0 python eval.py \
-	--model log/log_paper/model.pth \
-	--infos_path log/log_paper/infos_paper.pkl \
+CUDA_VISIBLE_DEVICES=2 python eval.py \
+	--model log/log_paper_gslast/model.pth \
+	--infos_path log/log_paper_gslast/infos_paper_gslast.pkl \
 	--dump_images 0 \
 	--dump_json 1 \
 	--num_images -1 \

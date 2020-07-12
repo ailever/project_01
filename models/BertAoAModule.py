@@ -100,6 +100,6 @@ class GramSchmidt(nn.Module):
         self.gramschmidt04 = GramSchmidt04()
 
     def forward(self, x):
-        dim = len(x.size());                             print(f'x : {x.size()}')
-        x = getattr(self, 'gramschmidt0'+str(dim))(x);   print(f'x : {x.size()}')
+        dim = len(x.size())    
+        x = getattr(self, 'gramschmidt0'+str(dim))(x)
         return x
