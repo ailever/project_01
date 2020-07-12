@@ -1,6 +1,6 @@
 CUDA_VISIBLE_DEVICES=0 python eval.py \
-	--model log/log_paper/model.pth \
-	--infos_path log/log_paper/infos_paper.pkl \
+	--model log/log_grnet/model.pth \
+	--infos_path log/log_grnet/infos_grnet.pkl \
 	--dump_images 0 \
 	--dump_json 1 \
 	--num_images -1 \
