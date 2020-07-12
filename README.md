@@ -17,7 +17,7 @@
 ## Implemetation
 
 ### 1. Download & Installation
-`/usr/local/java/`
+`/usr/local/java/`<br>
 <a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank">Download</a>｜<a href="https://opentutorials.org/course/1223/5558" target="_blank">download manual</a>
 ```bash
 $ mkdir /usr/local/java
