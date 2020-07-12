@@ -4,4 +4,5 @@ coco-caption/
 data/
 log/
 info/
+eval_results/
 *.pyc
