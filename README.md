@@ -138,7 +138,7 @@ $ bash train.sh
 ### 4. Evaluation
 ```bash
 $ bash evaluation.sh
-$ cat eval_results/*.json
+$ less eval_results/*.json
 ```
 
 
