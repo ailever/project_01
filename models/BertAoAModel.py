@@ -122,6 +122,87 @@ class AoA_Refiner_Core(nn.Module):
             x = layer(x, mask)
         return self.norm(x)
 
+
+class Attention(nn.Module):
+    """
+    Compute 'Scaled Dot Product Attention
+    """
+
+    def forward(self, query, key, value, mask=None, dropout=None):
+        scores = torch.matmul(query, key.transpose(-2, -1)) \
+                 / math.sqrt(query.size(-1))
+
+        if mask is not None:
+            scores = scores.masked_fill(mask == 0, -1e9)
+
+        p_attn = F.softmax(scores, dim=-1)
+
+        if dropout is not None:
+            p_attn = dropout(p_attn)
+
+        return torch.matmul(p_attn, value), p_attn
+
+
+class MultiHeadedAttention(nn.Module):
+    """
+    Take in model size and number of heads.
+    """
+
+    def __init__(self, embed_dim, num_heads, dropout=0.1):
+        super().__init__()
+        assert embed_dim % num_heads == 0
+
+        # We assume d_v always equals d_k
+        self.d_k = embed_dim // num_heads
+        self.h = num_heads
+
+        self.linear_layers = nn.ModuleList([nn.Linear(embed_dim, embed_dim) for _ in range(3)])
+        self.output_linear = nn.Linear(embed_dim, embed_dim)
+        self.attention = Attention()
+
+        self.dropout = nn.Dropout(p=dropout)
+
+    def forward(self, query, key, value, mask=None):
+        batch_size = query.size(0)
+
+        # 1) Do all the linear projections in batch from embed_dim => h x d_k
+        query, key, value = [l(x).view(batch_size, -1, self.h, self.d_k).transpose(1, 2)
+                             for l, x in zip(self.linear_layers, (query, key, value))]
+
+        # 2) Apply attention on all the projected vectors in batch.
+        x, attn = self.attention(query, key, value, mask=mask, dropout=self.dropout)
+
+        # 3) "Concat" using a view and apply a final linear.
+        x = x.transpose(1, 2).contiguous().view(batch_size, -1, self.h * self.d_k)
+
+        return self.output_linear(x)
+
+
+class TransformerEncoderLayer(nn.Module):
+    def __init__(self, d_model, nhead, dim_feedforward, dropout):
+        super(TransformerEncoderLayer, self).__init__()
+        """
+        :param d_model: hidden size of transformer
+        :param attn_heads: head sizes of multi-head attention
+        :param feed_forward_hidden: feed_forward_hidden, usually 4*hidden_size
+        :param dropout: dropout rate
+        """
+
+        self.attention = MultiHeadedAttention(embed_dim=d_model, num_heads=nhead)
+        self.feed_forward = PositionwiseFeedForward(d_model=d_model, d_ff=dim_feedforward, dropout=dropout)
+        self.input_sublayer = SublayerConnection(size=d_model, dropout=dropout)
+        self.output_sublayer = SublayerConnection(size=d_model, dropout=dropout)
+        self.dropout = nn.Dropout(p=dropout)
+
+    def forward(self, x, src_mask, context=None, **kwargs):
+        if context != None:
+            x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, context, context, mask=src_mask)[0])
+        else:
+            x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, _x, _x, mask=src_mask)[0])
+        x = self.output_sublayer(x, self.feed_forward)
+        return self.dropout(x)
+
+
 class TransformerEncoder(nn.Module):
     __constants__ = ['norm']
 
@@ -131,90 +212,36 @@ class TransformerEncoder(nn.Module):
         self.num_layers = num_layers
         self.norm = norm
 
-    def forward(self, src, mask=None, src_key_padding_mask=None):
+    def forward(self, src, context=None, mask=None, src_key_padding_mask=None):
         output = src
-        for mod in self.layers:
-            output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
-        if self.norm is not None:
-            output = self.norm(output)
+        if context!=None:
+            for idx, mod in enumerate(self.layers):
+                if idx == 0 : output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask, context=context)
+                else        : output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
+                    
+        else:
+            for mod in self.layers:
+                output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
+        
+        if self.norm is not None : output = self.norm(output)
 
         return output
-
-
-class TransformerEncoderLayer(nn.Module):
-    def __init__(self, d_model, nhead, dim_feedforward=2048, dropout=0.1, activation="relu"):
-        super(TransformerEncoderLayer, self).__init__()
-        self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout)
-        # Implementation of Feedforward model
-        self.linear1 = nn.Linear(d_model, dim_feedforward)
-        self.dropout = nn.Dropout(dropout)
-        self.linear2 = nn.Linear(dim_feedforward, d_model)
-
-        self.norm1 = nn.LayerNorm(d_model)
-        self.norm2 = nn.LayerNorm(d_model)
-        self.dropout1 = nn.Dropout(dropout)
-        self.dropout2 = nn.Dropout(dropout)
-
-        self.activation = F.relu if activation == "relu" else F.gelu
-
-    def __setstate__(self, state):
-        if 'activation' not in state : state['activation'] = F.relu
-        super(TransformerEncoderLayer, self).__setstate__(state)
-
-    def forward(self, src, src_mask=None, src_key_padding_mask=None):
-        src2 = self.self_attn(src, src, src, attn_mask=src_mask, key_padding_mask=src_key_padding_mask)[0]
-        src = src + self.dropout1(src2)
-        src = self.norm1(src)
-        src2 = self.linear2(self.dropout(self.activation(self.linear1(src))))
-        src = src + self.dropout2(src2)
-        src = self.norm2(src)
-        return src
 
 
     
 class BertAoA_Decoder_Core(nn.Module):
     def __init__(self, opt):
         super(BertAoA_Decoder_Core, self).__init__()
-        self.drop_prob_lm = opt.drop_prob_lm
-        self.d_model = opt.rnn_size
-        self.use_multi_head = opt.use_multi_head
-        self.multi_head_scale = opt.multi_head_scale
+        self.encoder_layer = TransformerEncoderLayer(d_model=opt.rnn_size, nhead=opt.nhead, dim_feedforward=opt.rnn_size * 4, dropout=opt.drop_prob_lm)
+        self.transformer_encoder = TransformerEncoder(self.encoder_layer, num_layers=opt.nlayer)
+        self.out_drop = nn.Dropout(opt.drop_prob_lm)
+        self.att2ctx = nn.Sequential(nn.Linear(2 * opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
 
-        self.use_ctx_drop = getattr(opt, 'ctx_drop', 0)
-        self.out_res = getattr(opt, 'out_res', 0)
-        self.decoder_type = getattr(opt, 'decoder_type', 'BertAoA')
 
-        self.att_lstm = nn.LSTMCell(opt.input_encoding_size + opt.rnn_size, opt.rnn_size) # we, fc, h^2_t-1
-        self.out_drop = nn.Dropout(self.drop_prob_lm)
-        self.encoder_layer = nn.TransformerEncoderLayer(d_model=1024, nhead=opt.nhead)
-        
-        self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
-        """
-        if self.decoder_type == 'LSTM':
-            # LSTM layer
-            self.att2ctx = nn.LSTMCell(self.d_model * opt.multi_head_scale + opt.rnn_size, opt.rnn_size)
-        elif self.decoder_type == 'BertAoA':
-            self.att2ctx = nn.TransformerEncoder(self.encoder_layer, num_layers=opt.nlayer)
-        
-        else:
-            # Base linear layer
-            self.att2ctx = nn.Sequential(nn.Linear(self.d_model * opt.multi_head_scale + opt.rnn_size, opt.rnn_size), nn.ReLU())
-        """
-
-        # if opt.use_multi_head == 1: # TODO, not implemented for now           
-        #     self.attention = MultiHeadedAddAttention(opt.num_heads, opt.d_model, scale=opt.multi_head_scale)
-
-        self.attention = nn.MultiheadAttention(embed_dim=opt.rnn_size, num_heads=opt.num_heads)
-
-        if self.use_ctx_drop:
-            self.ctx_drop = nn.Dropout(self.drop_prob_lm)        
-        else:
-            self.ctx_drop = lambda x :x
-
-    def forward(self, xt, mean_feats, att_feats, p_att_feats, state, att_masks=None):
+    def forward(self, xt, mean_feats, att_feats, p_att_feats, att_masks=None):
         # state[0][1] is the context vector at the last step
         """
-	[debug] xt : torch.Size([50, 1024])
+	[debug] xt : torch.Size([50, 18, 1024])
 	[debug] mean_feats : torch.Size([50, 1024])
         [debug] state[0][1] : torch.Size([50, 1024])
 	[debug] x : torch.Size([50, 2048])
@@ -228,36 +255,16 @@ class BertAoA_Decoder_Core(nn.Module):
         [debug] ctx_input : torch.Size([50, 2048])
 
         """
-        x = torch.cat([xt, mean_feats + self.ctx_drop(state[0][1])], 1)
-        h = (state[0][0], state[1][0])
+        """
+        [debug] xt : torch.Size([50, 18, 1024])
+        [debug] p_att_feats : torch.Size([50, 196, 1024])   
+        """
+        x = self.transformer_encoder(xt, context=p_att_feats)
+        #x = self.att2ctx(x)
 
-        h_att, c_att = self.att_lstm(x, h)
-
-        att = self.attention(h_att.unsqueeze(1), att_feats, p_att_feats, attn_mask=att_masks)[0]
-        ctx_input = torch.cat([att.squeeze(1), h_att], 1)
-        if self.decoder_type == 'LSTM':
-            output, c_logic = self.att2ctx(ctx_input, (state[0][1], state[1][1]))
-            state = (torch.stack((h_att, output)), torch.stack((c_att, c_logic)))
-            """
-            elif self.decoder_type == 'BertAoA':
-                print(ctx_input.size())
-                print(att_feats.size())           
-                output = self.att2ctx(att_feats).sum(dim=-2)
-                state = (torch.stack((h_att, output)), torch.stack((c_att, state[1][1])))
-                print('===========================')
-                #output = self.att2ctx(ctx_input)
-            """
-        else:
-            output = self.att2ctx(ctx_input)
-            # save the context vector to state[0][1]
-            state = (torch.stack((h_att, output)), torch.stack((c_att, state[1][1])))
-
-        if self.out_res:
-            # add residual connection
-            output = output + h_att
-
-        output = self.out_drop(output)
-        return output, state
+        #x = x + h_att
+        #x = self.out_drop(x)
+        return x
 
 
 

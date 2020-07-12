@@ -104,6 +104,7 @@ class AttModel(CaptionModel):
 	[debug] p_fc_feats : torch.Size([50, 1024])
 	[debug] p_att_feats : torch.Size([50, 196, 1024])
 	[debug] pp_att_feats : torch.Size([50, 196, 1024])
+	[debug] logprobs : torch.Size([50, 18, 9488])
         """
         batch_size = fc_feats.size(0)
         state = self.init_hidden(batch_size)
@@ -114,19 +115,11 @@ class AttModel(CaptionModel):
         p_fc_feats, p_att_feats, pp_att_feats, p_att_masks = self._prepare_feature(fc_feats, att_feats, att_masks)
         # pp_att_feats is used for attention, we cache it in advance to reduce computation cost
         
-	"""
-        for i in range(seq.size(1) - 1):
-            #[debug] torch.Size([50]), torch.cuda.LongTensor
-            it = seq[:, i].clone()                      # aoapaer : w0         
-            if i >= 1 and seq[:, i].sum() == 0 : break  # break if all the sequences end
-
-            output, state = self.get_logprobs_state(it, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks, state)
-            outputs[:, i] = output
-	"""
         it = seq.clone()
-        
-
-        return outputs
+        xt = self.embed(it)
+        output = self.core(xt, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks)
+        logprobs = F.log_softmax(self.logit(output), dim=-1)
+        return logprobs
 
 
     def get_logprobs_state(self, it, fc_feats, att_feats, p_att_feats, att_masks, state):

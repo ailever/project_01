@@ -123,20 +123,39 @@ class LabelSmoothing(nn.Module):
         self.true_dist = None
         
     def forward(self, input, target, mask):
+        """
+        [debug] input : torch.Size([50, 18, 9488])
+	[debug] target : torch.Size([50, 17])
+        """
+        
         # truncate to the same size
-        target = target[:, :input.size(1)]
+        """
+        [debug] target : torch.Size([50, 17])
+        [debug] mask : torch.Size([50, 17])
+        """
+        target = target[:, :input.size(1)-1]
         mask =  mask[:, :input.size(1)]
-
-        input = to_contiguous(input).view(-1, input.size(-1))
+        
+        """
+        [debug] input : torch.Size([850, 9488])
+        [debug] target : torch.Size([850])
+        [debug] mask : torch.Size([850])
+        """
+        input = to_contiguous(input[:,:17,:]).view(-1, input.size(-1))
         target = to_contiguous(target).view(-1)
         mask = to_contiguous(mask).view(-1)
-
+        
         # assert x.size(1) == self.size
         self.size = input.size(1)
         # true_dist = x.data.clone()
         true_dist = input.data.clone()
         # true_dist.fill_(self.smoothing / (self.size - 2))
         true_dist.fill_(self.smoothing / (self.size - 1))
+        
+        """
+        [debug] true_dist : torch.Size([850, 9488])
+        [debug] self.confidence : 0.8
+        """
         true_dist.scatter_(1, target.data.unsqueeze(1), self.confidence)
         # true_dist[:, self.padding_idx] = 0
         # mask = torch.nonzero(target.data == self.padding_idx)

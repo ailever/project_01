@@ -17,6 +17,14 @@ class LossWrapper(torch.nn.Module):
                 sc_flag):
         out = {}
         if not sc_flag:
+            """
+	    [debug] fc_feats : torch.Size([50, 2048])
+	    [debug] att_feats : torch.Size([50, 196, 2048])
+	    [debug] labels : torch.Size([50, 18])
+	    [debug] masks : torch.Size([50, 18])
+	    [debug] self.model(~) : torch.Size([50, 214, 1024])
+            """
+
             loss = self.crit(self.model(fc_feats, att_feats, labels, att_masks), labels[:,1:], masks[:,1:]);
         else:
             self.model.eval()
