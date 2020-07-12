@@ -121,10 +121,10 @@ $ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_j
 $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_dir data/cocotalk --images_root images/coco
 $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_dir data/stylized_cocotalk --images_root images/stylized_coco
 ```
-  - data/cocotalk_fc
-  - data/cocotalk_att
-  - data/stylized_cocotalk_fc
-  - data/stylized_cocotalk_att
+  - grnet/data/cocotalk_fc
+  - grnet/data/cocotalk_att
+  - grnet/data/stylized_cocotalk_fc
+  - grnet/data/stylized_cocotalk_att
 
 
 <br><br>
@@ -132,8 +132,9 @@ $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_di
 ```bash
 $ bash train.sh
 ```
-  - log/log_grnet/
-  - option_info/grnet_\*.txt
+  - grnet/log/log_grnet/
+  - grnet/option_info/grnet_\*.txt
+  - grnet/eval_results/grnet.json
   
 <br><br>
 ### 4. Evaluation
@@ -141,7 +142,7 @@ $ bash train.sh
 $ bash evaluation.sh
 $ less eval_results/grnet.json
 ```
-  - eval_results/grnet.json
+  - grnet/eval_results/grnet.json
 
 <br><br>
 ### Additional resources
