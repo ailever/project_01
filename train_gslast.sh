@@ -1,4 +1,4 @@
-id="paper_gslast"
+id="grnet_gslast"
 if [ ! -f log/log_$id/infos_$id.pkl ]; then
 start_from=""
 else
