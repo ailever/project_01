@@ -34,7 +34,7 @@ CUDA_VISIBLE_DEVICES=3 python train.py --id $id \
     --scheduled_sampling_start 0 \
     --checkpoint_path log/log_$id  \
     $start_from \
-    --save_checkpoint_every 1000 \
+    --save_checkpoint_every 3000 \
     --language_eval 1 \
     --val_images_use -1 \
     --max_epochs 1 \

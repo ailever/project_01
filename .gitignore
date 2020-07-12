@@ -3,6 +3,6 @@ cider/
 coco-caption/
 data/
 log/
-info/
+option_info/
 eval_results/
 *.pyc
