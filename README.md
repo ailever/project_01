@@ -70,7 +70,8 @@ $ bash get_google_word2vec_model.sh
 ```bash
 $ gunzip -k GoogleNews-vectors-negative300.bin.gz
 ```
-
+  - GoogleNews-vectors-negative300.bin
+  
 <br><br>
 `./grnet/data/`
 ```bash
