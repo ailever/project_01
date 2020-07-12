@@ -236,7 +236,9 @@ class BertAoA_Decoder_Core(nn.Module):
         self.transformer_encoder = TransformerEncoder(self.encoder_layer, num_layers=opt.nlayer)
         self.out_drop = nn.Dropout(opt.drop_prob_lm)
         self.att2ctx = nn.Sequential(nn.Linear(2 * opt.rnn_size, 2 * opt.rnn_size), nn.GLU())
-
+        if opt.gs_type:
+            self.gs_type = opt.gs_type
+            self.gramschmidt = GramSchmidt()
 
     def forward(self, xt, mean_feats, att_feats, p_att_feats, att_masks=None):
         # state[0][1] is the context vector at the last step
@@ -259,7 +261,9 @@ class BertAoA_Decoder_Core(nn.Module):
         [debug] xt : torch.Size([50, 18, 1024])
         [debug] p_att_feats : torch.Size([50, 196, 1024])   
         """
+        if self.gramschmidt == 'first': xt = self.gramschmidt(xt)
         x = self.transformer_encoder(xt, context=p_att_feats)
+        if self.gramschmidt == 'last': x = self.gramschmidt(x)
         #x = self.att2ctx(x)
 
         #x = x + h_att
