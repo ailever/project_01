@@ -39,7 +39,9 @@ $ update-alternatives --set javac /usr/local/java/jdk-11.0.7/bin/javac;
 $ . /etc/profile
 $ java -version
 ```
-<br><br><br>
+  - /usr/local/java/jdk-11.0.7
+  
+<br><br>
 `./`
 ```bash
 $ git clone https://github.com/ailever/grnet.git
