@@ -68,6 +68,7 @@ $ bash get_google_word2vec_model.sh
 ```
 `./grnet/coco-caption/pycocoevalcap/wmd/data/`
 ```bash
+$ wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"
 $ gunzip -k GoogleNews-vectors-negative300.bin.gz
 ```
   - GoogleNews-vectors-negative300.bin
