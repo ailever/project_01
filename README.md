@@ -64,7 +64,10 @@ $ git clone https://github.com/ruotianluo/cider.git
 $ bash get_stanford_models.sh
 $ bash get_google_word2vec_model.sh
 ```
-
+`./grnet/coco-caption/pycocoevalcap/wmd/data/`
+```bash
+$ gunzip -k GoogleNews-vectors-negative300.bin.gz
+```
 
 <br><br>
 `./grnet/data/`
