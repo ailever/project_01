@@ -36,6 +36,7 @@ def train(opt):
     with open(f'info/{opt.gs_type}_{opt.nhead}_{opt.nlayer}.txt', 'a') as log:
         for i in vars(opt):
             log.write(f'{i} : ' + str(getattr(opt, i)) + '\n'); print(f'* opt.{i} : {getattr(opt, i)}')
+        log.write('*====================== INFO ======================*')
     print('*====================== INFO ======================*')
         
 
