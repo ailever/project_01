@@ -17,6 +17,29 @@
 ## Implemetation
 
 ### 1. Download & Installation
+`/usr/local/java/`
+<a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank">Download</a>｜<a href="https://opentutorials.org/course/1223/5558" target="_blank">download manual</a>
+```bash
+$ mkdir /usr/local/java
+$ cd /usr/local/java
+$ tar -zxvf jdk-11.0.7_linux-x64_bin.tar.gz
+$ vim /etc/profile
+```
+`/etc/profile`
+```bash
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+```
+```bash
+$ update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk-11.0.7/bin/java" 1;
+$ update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/java/jdk-11.0.7/bin/javac" 1;
+$ update-alternatives --set java /usr/local/java/jdk-11.0.7/bin/java;
+$ update-alternatives --set javac /usr/local/java/jdk-11.0.7/bin/javac;
+```
+```bash
+$ . /etc/profile
+$ java -version
+```
+<br><br><br>
 `./`
 ```bash
 $ git clone https://github.com/ailever/grnet.git
