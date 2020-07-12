@@ -1,23 +1,32 @@
 Traceback (most recent call last):
-  File "train.py", line 285, in <module>
-    train(opt)
-  File "train.py", line 233, in train
-    dp_model, lw_model.crit, loader, eval_kwargs)
-  File "/local_host/docker_containers/paper/grnet/eval_utils.py", line 120, in eval_split
-    seq = model(fc_feats, att_feats, att_masks, opt=eval_kwargs, mode='sample')[0].data
+  File "train.py", line 181, in train
+    model_out = dp_lw_model(fc_feats, att_feats, labels, masks, att_masks, data['gts'], torch.arange(0, len(data['gts'])), sc_flag)
   File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
     result = self.forward(*input, **kwargs)
   File "/opt/conda/lib/python3.6/site-packages/torch/nn/parallel/data_parallel.py", line 153, in forward
     return self.module(*inputs[0], **kwargs[0])
   File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
     result = self.forward(*input, **kwargs)
-  File "/local_host/docker_containers/paper/grnet/models/CaptionModel.py", line 34, in forward
-    return getattr(self, '_'+mode)(*args, **kwargs)
-  File "/local_host/docker_containers/paper/grnet/models/AttModel.py", line 197, in _sample
-    logprobs, state = self.get_logprobs_state(it, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks, state)
-  File "/local_host/docker_containers/paper/grnet/models/AttModel.py", line 137, in get_logprobs_state
-    output, state = self.core(xt, fc_feats, att_feats, p_att_feats, state, att_masks)
+  File "/local_host/docker_containers/paper/grnet/misc/loss_wrapper.py", line 28, in forward
+    loss = self.crit(self.model(fc_feats, att_feats, labels, att_masks), labels[:,1:], masks[:,1:]);
   File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
     result = self.forward(*input, **kwargs)
-TypeError: forward() takes from 5 to 6 positional arguments but 7 were given
+  File "/local_host/docker_containers/paper/grnet/models/CaptionModel.py", line 34, in forward
+    return getattr(self, '_'+mode)(*args, **kwargs)
+  File "/local_host/docker_containers/paper/grnet/models/AttModel.py", line 120, in _forward
+    output, state = self.core(xt, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks)
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/local_host/docker_containers/paper/grnet/models/BertAoAModel.py", line 268, in forward
+    x, state = self.transformer_encoder(xt, context=p_att_feats)
+  File "/opt/conda/lib/python3.6/site-packages/torch/nn/modules/module.py", line 550, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/local_host/docker_containers/paper/grnet/models/BertAoAModel.py", line 229, in forward
+    memory = []; memory.append(copy.deepcopy(src))
+  File "/opt/conda/lib/python3.6/copy.py", line 161, in deepcopy
+    y = copier(memo)
+  File "/opt/conda/lib/python3.6/site-packages/torch/tensor.py", line 44, in __deepcopy__
+    raise RuntimeError("Only Tensors created explicitly by the user "
+RuntimeError: Only Tensors created explicitly by the user (graph leaves) support the deepcopy protocol at the moment
+
 Terminating BlobFetcher

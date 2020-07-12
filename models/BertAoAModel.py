@@ -210,7 +210,9 @@ class TransformerEncoderLayer(nn.Module):
                 x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, context, context, mask=src_mask)[0])
             else:
                 x = self.input_sublayer(x, lambda _x: self.attention.forward(_x, _x, _x, mask=src_mask)[0])
+        
         x = self.output_sublayer(x, self.feed_forward)
+
         return self.dropout(x)
 
 
@@ -224,19 +226,26 @@ class TransformerEncoder(nn.Module):
         self.norm = norm
 
     def forward(self, src, context=None, mask=None, src_key_padding_mask=None):
+        memory = []; memory.append(src.clone())
         output = src
+
         if context!=None:
             for idx, mod in enumerate(self.layers):
-                if idx == 0 : output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask, context=context)
-                else        : output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
+                if idx == 0: 
+                    output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask, context=context)
+                    memory.append(output.clone())
+                else:
+                    output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
+                    memory.append(output.clone())
                     
         else:
             for mod in self.layers:
                 output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
+                memory.append(output.clone())
         
         if self.norm is not None : output = self.norm(output)
-
-        return output
+        
+        return output, memory
 
 
     
@@ -256,10 +265,10 @@ class BertAoA_Decoder_Core(nn.Module):
     def forward(self, xt, mean_feats, att_feats, p_att_feats, att_masks=None):
         
         if self.gs_type == 'first': p_att_feats = self.gramschmidt(p_att_feats)
-        x = self.transformer_encoder(xt, context=p_att_feats)
+        x, state = self.transformer_encoder(xt, context=p_att_feats)
         if self.gs_type == 'last': x = self.gramschmidt(x)
         
-        return x
+        return x, state
 
 
 

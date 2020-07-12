@@ -117,7 +117,7 @@ class AttModel(CaptionModel):
         
         it = seq.clone()
         xt = self.embed(it)
-        output = self.core(xt, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks)
+        output, state = self.core(xt, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks)
         logprobs = F.log_softmax(self.logit(output), dim=-1)
         return logprobs
 
@@ -134,10 +134,10 @@ class AttModel(CaptionModel):
         """
         # 'it' contains a word index
         xt = self.embed(it)
-        output = self.core(xt, fc_feats, att_feats, p_att_feats, att_masks)
+        output, state = self.core(xt, fc_feats, att_feats, p_att_feats, att_masks)
         logprobs = F.log_softmax(self.logit(output), dim=-1)
 
-        return logprobs
+        return logprobs, state
 
 
     def _sample_beam(self, fc_feats, att_feats, att_masks=None, opt={}):
@@ -163,7 +163,7 @@ class AttModel(CaptionModel):
                 if t == 0: # input <bos>
                     it = fc_feats.new_zeros([beam_size], dtype=torch.long)
 
-                logprobs = self.get_logprobs_state(it, tmp_fc_feats, tmp_att_feats, tmp_p_att_feats, tmp_att_masks, state)
+                logprobs, state = self.get_logprobs_state(it, tmp_fc_feats, tmp_att_feats, tmp_p_att_feats, tmp_att_masks, state)
 
             self.done_beams[k] = self.beam_search(state, logprobs, tmp_fc_feats, tmp_att_feats, tmp_p_att_feats, tmp_att_masks, opt=opt)
             seq[:, k] = self.done_beams[k][0]['seq'] # the first beam has highest cumulative score
@@ -196,7 +196,7 @@ class AttModel(CaptionModel):
             if t == 0: # input <bos>
                 it = fc_feats.new_zeros(batch_size, dtype=torch.long)
 
-            logprobs = self.get_logprobs_state(it, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks, state)
+            logprobs, state = self.get_logprobs_state(it, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks, state)
             
             if decoding_constraint and t > 0:
                 tmp = logprobs.new_zeros(logprobs.size())
