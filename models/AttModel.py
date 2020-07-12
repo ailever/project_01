@@ -139,6 +139,7 @@ class AttModel(CaptionModel):
 
         return logprobs
 
+
     def _sample_beam(self, fc_feats, att_feats, att_masks=None, opt={}):
         beam_size = opt.get('beam_size', 10)
         batch_size = fc_feats.size(0)
@@ -170,6 +171,7 @@ class AttModel(CaptionModel):
         # return the samples and their log likelihoods
         return seq.transpose(0, 1), seqLogprobs.transpose(0, 1)
     
+
     def _sample(self, fc_feats, att_feats, att_masks=None, opt={}):
 
         sample_method = opt.get('sample_method', 'greedy')
@@ -194,7 +196,7 @@ class AttModel(CaptionModel):
             if t == 0: # input <bos>
                 it = fc_feats.new_zeros(batch_size, dtype=torch.long)
 
-            logprobs = self.get_logprobs_state(it, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks)
+            logprobs = self.get_logprobs_state(it, p_fc_feats, p_att_feats, pp_att_feats, p_att_masks, state)
             
             if decoding_constraint and t > 0:
                 tmp = logprobs.new_zeros(logprobs.size())

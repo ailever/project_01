@@ -255,7 +255,7 @@ class BertAoA_Decoder_Core(nn.Module):
 
     def forward(self, xt, mean_feats, att_feats, p_att_feats, att_masks=None):
         
-        if self.gs_type == 'first': xt = self.gramschmidt(xt)
+        if self.gs_type == 'first': p_att_feats = self.gramschmidt(p_att_feats)
         x = self.transformer_encoder(xt, context=p_att_feats)
         if self.gs_type == 'last': x = self.gramschmidt(x)
         
