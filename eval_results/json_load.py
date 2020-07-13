@@ -1,6 +1,7 @@
 import json
+import sys
 
-obj = json.load(open('./grnet_val.json'))
+obj = json.load(open('eval_results/grnet_val.json'))
 overall = obj['overall']
 imgToEval = obj['imgToEval']
 
