@@ -41,3 +41,9 @@ for idx, (key, value)in enumerate(imgToEval.items()):
         Size = imgToEval[key]['SPICE']['Size'];                 print(f'  - Size : {Size}')
         Color = imgToEval[key]['SPICE']['Color'];               print(f'  - Color : {Color}')
         Object = imgToEval[key]['SPICE']['Object'];             print(f'  - Object : {Object}')
+    
+    """
+    image_id = imgToEval[key]['image_id']
+    caption = imgToEval[key]['caption']
+    print(f'{image_id:6} , {caption}')
+    """
