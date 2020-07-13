@@ -17,33 +17,43 @@ best_val_score = infos['best_val_score'];   #print(f'* best_val_score : {best_va
 
 
 
+def infos_split_ix():
+    train = split_ix['train']
+    l = []
+    for i in train:l.append(int(i))
+    print(f'* len of infos["split_ix"]["train"] : {len(l)}') # len : 113287
+    print(f'* min of infos["split_ix"]["train"] : {min(l)}') # min : 1
+    print(f'* max of infos["split_ix"]["train"] : {max(l)}') # max : 123286
 
-train = split_ix['train']
-l = []
-for i in train:l.append(int(i))
-print(f'* len of infos["split_ix"]["train"] : {len(l)}') # len : 113287
-print(f'* min of infos["split_ix"]["train"] : {min(l)}') # min : 1
-print(f'* max of infos["split_ix"]["train"] : {max(l)}') # max : 123286
+    val = split_ix['val']
+    l = []
+    for i in val:l.append(int(i))
+    print(f'* len of infos["split_ix"]["val"] : {len(l)}') # len : 5000
+    print(f'* min of infos["split_ix"]["val"] : {min(l)}') # min : 2
+    print(f'* max of infos["split_ix"]["val"] : {max(l)}') # max : 40482
 
-val = split_ix['val']
-l = []
-for i in val:l.append(int(i))
-print(f'* len of infos["split_ix"]["val"] : {len(l)}') # len : 5000
-print(f'* min of infos["split_ix"]["val"] : {min(l)}') # min : 2
-print(f'* max of infos["split_ix"]["val"] : {max(l)}') # max : 40482
+    test = split_ix['test']
+    l = []
+    for i in test:l.append(int(i))
+    print(f'* len of infos["split_ix"]["test"] : {len(l)}') # len : 5000
+    print(f'* min of infos["split_ix"]["test"] : {min(l)}') # min : 0
+    print(f'* max of infos["split_ix"]["test"] : {max(l)}') # max : 40503
 
-test = split_ix['test']
-l = []
-for i in test:l.append(int(i))
-print(f'* len of infos["split_ix"]["test"] : {len(l)}') # len : 5000
-print(f'* min of infos["split_ix"]["test"] : {min(l)}') # min : 0
-print(f'* max of infos["split_ix"]["test"] : {max(l)}') # max : 40503
+def infos_vocab():
+    l = []
+    for i in vocab:l.append(int(i))
+    print(f'* len of infos["vocab"] : {len(l)}') # len : 9487
+    print(f'* min of infos["vocab"] : {min(l)}') # min : 1
+    print(f'* max of infos["vocab"] : {max(l)}') # max : 9487
 
-l = []
-for i in vocab:l.append(int(i))
-print(f'* len of infos["vocab"] : {len(l)}') # len : 9487
-print(f'* min of infos["vocab"] : {min(l)}') # min : 1
-print(f'* max of infos["vocab"] : {max(l)}') # max : 9487
+    for key, value in vocab.items():
+        if key == '1' : print(value)
 
-for key, value in vocab.items():
-    if key == '1' : print(value)
+
+def main():
+    infos_split_ix()
+    infos_vocab()
+
+
+if __name__ == "__main__":
+    main()
