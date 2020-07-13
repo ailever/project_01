@@ -31,10 +31,9 @@ for idx, (key, value)in enumerate(imgToEval.items()):
         METEOR = imgToEval[key]['METEOR'];          print(f' - METEOR : {METEOR}')
         ROUGE_L = imgToEval[key]['ROUGE_L'];        print(f' - ROUGE_L : {ROUGE_L}')
         CIDEr = imgToEval[key]['CIDEr'];            print(f' - CIDEr : {CIDEr}')
-        #SPICE = imgToEval[key]['SPICE'];            print(f' - SPICE : {SPICE}')
         WMD = imgToEval[key]['WMD'];                print(f' - WMD : {WMD}')
         caption = imgToEval[key]['caption'];        print(f' - caption : {caption}')
-        
+        SPICE = imgToEval[key]['SPICE'];            print(' - SPICE')
         All = imgToEval[key]['SPICE']['All'];                   print(f'  - All : {All}')
         Relation = imgToEval[key]['SPICE']['Relation'];         print(f'  - Relation : {Relation}')
         Cardinality = imgToEval[key]['SPICE']['Cardinality'];   print(f'  - Cardinality : {Cardinality}')
