@@ -188,12 +188,8 @@ def train(opt):
             torch.cuda.synchronize()
             train_loss = loss.item()
             end = time.time()
-            if not sc_flag:
-                print("iter {} (epoch {}), train_loss = {:.3f}, time/batch = {:.3f}" \
-                    .format(iteration, epoch, train_loss, end - start))
-            else:
-                print("iter {} (epoch {}), avg_reward = {:.3f}, time/batch = {:.3f}" \
-                    .format(iteration, epoch, model_out['reward'].mean(), end - start))
+            if not sc_flag : print(f"iter {iteration} (epoch {epoch}), train_loss = {train_loss:.3f}, time/batch = {end-start:.3f}")
+            else           : print(f"iter {iteration} (epoch {epoch}), avg_reward = {model_out['reward'].mean():.3f}, time/batch = {end-start:.3f}")
 
             # Update the iteration and epoch
             iteration += 1
