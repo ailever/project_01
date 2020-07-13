@@ -6,7 +6,7 @@ overall = obj['overall']
 imgToEval = obj['imgToEval']
 
 
-print('\n* overall')
+print('\n* overall(lang_stats)')
 Bleu_1 = overall['Bleu_1'];                     print(f' - Bleu_1 : {Bleu_1}')
 Bleu_2 = overall['Bleu_2'];                     print(f' - Bleu_2 : {Bleu_2}')
 Bleu_3 = overall['Bleu_3'];                     print(f' - Bleu_3 : {Bleu_3}')
