@@ -141,9 +141,8 @@ $ bash train.sh
 ### 4. Evaluation
 ```bash
 $ bash evaluation.sh
-$ less eval_results/grnet_val.json
+$ python eval_results/json_load.py
 ```
-  - grnet/eval_results/grnet_val.json
 
 <br><br>
 ### Additional resources
