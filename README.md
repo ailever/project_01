@@ -135,15 +135,15 @@ $ bash train.sh
 ```
   - grnet/log/log_grnet/
   - grnet/option_info/grnet_\*.txt
-  - grnet/eval_results/grnet.json
+  - grnet/eval_results/grnet_val.json
   
 <br><br>
 ### 4. Evaluation
 ```bash
 $ bash evaluation.sh
-$ less eval_results/grnet.json
+$ less eval_results/grnet_val.json
 ```
-  - grnet/eval_results/grnet.json
+  - grnet/eval_results/grnet_val.json
 
 <br><br>
 ### Additional resources

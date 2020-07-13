@@ -226,11 +226,9 @@ def train(opt):
             # make evaluation on validation set, and save model
             if (iteration % opt.save_checkpoint_every == 0):
                 # eval model
-                eval_kwargs = {'split': 'val',
-                                'dataset': opt.input_json}
+                eval_kwargs = {'split': 'val', 'dataset': opt.input_json}
                 eval_kwargs.update(vars(opt))
-                val_loss, predictions, lang_stats = eval_utils.eval_split(
-                    dp_model, lw_model.crit, loader, eval_kwargs)
+                val_loss, predictions, lang_stats = eval_utils.eval_split(dp_model, lw_model.crit, loader, eval_kwargs)
 
                 if opt.reduce_on_plateau:
                     if 'CIDEr' in lang_stats:
