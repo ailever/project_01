@@ -1,11 +1,11 @@
-id="paper_gsinner"
+id="grnet_gsinner"
 if [ ! -f log/log_$id/infos_$id.pkl ]; then
 start_from=""
 else
 start_from="--start_from log/log_$id"
 fi
 echo $start_from
-CUDA_VISIBLE_DEVICES=3 python train.py --id $id \
+CUDA_VISIBLE_DEVICES=2 python train.py --id $id \
     --caption_model aoa \
     --refine 1 \
     --refine_aoa 1 \

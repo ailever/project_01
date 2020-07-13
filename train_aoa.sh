@@ -1,11 +1,11 @@
-id="grnet_gsfirst"
+id="grnet_aoa"
 if [ ! -f log/log_$id/infos_$id.pkl ]; then
 start_from=""
 else
 start_from="--start_from log/log_$id"
 fi
 echo $start_from
-CUDA_VISIBLE_DEVICES=1 python train.py --id $id \
+CUDA_VISIBLE_DEVICES=3 python train.py --id $id \
     --caption_model aoa \
     --refine 1 \
     --refine_aoa 1 \
@@ -37,13 +37,13 @@ CUDA_VISIBLE_DEVICES=1 python train.py --id $id \
     --save_checkpoint_every 500 \
     --language_eval 1 \
     --val_images_use -1 \
-    --max_epochs 2 \
+    --max_epochs 1 \
     --scheduled_sampling_increase_every 5 \
     --scheduled_sampling_max_prob 0.5 \
     --learning_rate_decay_every 3 \
 	--nhead 2 \
 	--nlayer 6 \
-	--gs_type first
+	--add_aoa True
 
     #$start_from \
     #--input_fc_dir  data/cocobu_fc \

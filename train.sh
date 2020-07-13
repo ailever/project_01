@@ -34,7 +34,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py --id $id \
     --scheduled_sampling_start 0 \
     --checkpoint_path log/log_$id  \
     $start_from \
-    --save_checkpoint_every 3000 \
+    --save_checkpoint_every 500 \
     --language_eval 1 \
     --val_images_use -1 \
     --max_epochs 1 \
@@ -42,7 +42,8 @@ CUDA_VISIBLE_DEVICES=0 python train.py --id $id \
     --scheduled_sampling_max_prob 0.5 \
     --learning_rate_decay_every 3 \
 	--nhead 2 \
-	--nlayer 6
+	--nlayer 6 \
+	--add_aoa False
 
     #$start_from \
     #--input_fc_dir  data/cocobu_fc \
