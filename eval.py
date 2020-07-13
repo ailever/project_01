@@ -31,7 +31,6 @@ parser.add_argument('--gsp', type=int, default=0,
                 help='gram schmidt process')
 
 opts.add_eval_options(parser)
-
 opt = parser.parse_args()
 
 # Load infos
@@ -44,7 +43,6 @@ ignore = ['start_from']
 
 for k in vars(infos['opt']).keys():
     if k in replace:
-        print('* dmd :', getattr(opt, k))
         setattr(opt, k, getattr(opt, k) or getattr(infos['opt'], k, ''))
     elif k not in ignore:
         if not k in vars(opt):
@@ -62,7 +60,6 @@ model.eval()
 crit = utils.LanguageModelCriterion()
 
 # Create the Data Loader instance
-print("* dmd", opt.input_att_dir)
 if len(opt.image_folder) == 0:
   loader = DataLoader(opt)
 else:
@@ -77,8 +74,7 @@ loader.ix_to_word = infos['vocab']
 
 # Set sample options
 opt.datset = opt.input_json
-loss, split_predictions, lang_stats = eval_utils.eval_split(model, crit, loader, 
-    vars(opt))
+loss, split_predictions, lang_stats = eval_utils.eval_split(model, crit, loader, vars(opt))
 
 print('loss: ', loss)
 if lang_stats:
