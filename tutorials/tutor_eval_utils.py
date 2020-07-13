@@ -2,6 +2,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import os, sys
+sys.path.append('../')
+
 import torch
 import torch.nn as nn
 
@@ -11,10 +14,7 @@ from json import encoder
 import random
 import string
 import time
-import os, sys
-sys.path.append('../')
-
-from misc import utils as utils
+import misc.utils as utils
 
 bad_endings = ['a','an','the','in','for','at','of','with','before','after','on','upon','near','to','is','are','am']
 bad_endings += ['the']
@@ -166,7 +166,11 @@ def eval_split(model, crit, loader, eval_kwargs={}):
     return loss_sum/loss_evals, predictions, lang_stats
 
 
+
 def main():
+    lang_stats = language_eval(dataset, predictions, eval_kwargs['id'], split)
+
+
 
 if __name__ == "__main__":
     main()
