@@ -8,9 +8,28 @@ opts = tutor_opts.parse_opt()
 loader = DataLoader(opts)
 
 
+def loader_attr():
+    print('\n* loader dir info')
+    d = []
+    for i in dir(loader):
+        if str(i)[0:2] != "__":
+            print(f' - {i}')
+            d.append(str(i))
+    
+    print('\n* loader vars info')
+    v = []
+    for i in vars(loader):
+        print(f' - {i}')
+        v.append(str(i))
+    
+    print('\n* loader method info')
+    method = set(d) - set(v)
+    for i in method:
+        print(f' - {i}')
+
 
 def loader_simple_information():
-    print('\n* simple_loader_information')
+    print('\n* loader_simple_information')
     batch_size = getattr(loader, 'batch_size');               print(f' - loader.batch_size : {batch_size}')
     seq_per_img = getattr(loader, 'seq_per_img');             print(f' - loader.seq_per_img : {seq_per_img}')
     use_fc = getattr(loader, 'use_fc');                       print(f' - loader.use_fc : {use_fc}')
@@ -96,25 +115,53 @@ def loader_split_ix():
     val = split_ix['val'];                                    print(f'  - loader.split_ix["val"], len : {len(val)}')
     test = split_ix['test'];                                  print(f'  - loader.split_ix["test"], len : {len(test)}')
 
+
 def loader_etc():
     print('\n* loader_etc')
     iterators = getattr(loader, 'iterators');                 print(f' - loader.iterators : {iterators}')
     _prefetch_process = getattr(loader, '_prefetch_process'); print(f' - loader._prefetch_process : {_prefetch_process}')
 
 
+def loader_method_get_batch():
+    get_batch = loader.get_batch(split='train', batch_size=None)
+    
+    fc_feats = get_batch['fc_feats'];   print(f' - x=loader.get_batch(), x["fc_feats"] : {fc_feats.size(), fc_feats.type()}')
+    att_feats = get_batch['att_feats']; print(f' - x=loader.get_batch(), x["att_feats"] : {att_feats.size(), att_feats.type()}')
+    att_masks = get_batch['att_masks']; print(f' - x=loader.get_batch(), x["att_masks"] : {att_masks}')
+    labels = get_batch['labels'];       print(f' - x=loader.get_batch(), x["labels"] : {labels.size(), labels.type()}')
+    masks = get_batch['masks'];         print(f' - x=loader.get_batch(), x["masks"] : {masks.size(), masks.type()}')
+    bounds = get_batch['bounds'];       print(f' - x=loader.get_batch(), x["bounds"] : {bounds}')
+    
+    infos = get_batch['infos']
+    for i in infos :                    print(f' - x=loader.get_batch(), x["infos"] : {i}')
+    
+    gts = get_batch['gts']
+    for i in gts :                      print(f' - x=loader.get_batch(), x["gts"] : {len(i)}')
+
+
+
+def loader_method_etc():
+    get_seq_length = loader.get_seq_length();                   print(f' - loader.get_seq_length() : {get_seq_length}')
+    get_vocab_size = loader.get_vocab_size();                   print(f' - loader.get_vocab_size() : {get_vocab_size}')
+    get_vocab = loader.get_vocab();                             print(f' - loader.get_vocab() : {len(get_vocab)}')
+    reset_iterator = loader.reset_iterator(split='train');      print(f' - loader.reset_iterator() : {reset_iterator}')
+    get_caption = loader.get_captions(ix=1, seq_per_img=5);     print(f' - loader.get_caption() : {get_caption}')
 
 
 def main():
-    loader_simple_information()
-    loader_opt()
-    loader_info()
-    loader_ix_to_word()
-    loader_h5_label_file()
-    loader_label()
-    loader_loader()
-    loader_split_ix()
-    loader_etc()
-
+    #loader_attr()
+    #loader_simple_information()
+    #loader_opt()
+    #loader_info()
+    #loader_ix_to_word()
+    #loader_h5_label_file()
+    #loader_label()
+    #loader_loader()
+    #loader_split_ix()
+    #loader_etc()
+    
+    #loader_method_get_batch()
+    loader_method_etc()
 
 if __name__ == "__main__":
     main()

@@ -168,6 +168,10 @@ def eval_split(model, crit, loader, eval_kwargs={}):
 
 
 def main():
+    opt = tutor_opts.parse_opt()
+    eval_kwargs = {'split': 'val', 'dataset': opt.input_json}
+    eval_kwargs.update(vars(opt))
+
     lang_stats = language_eval(dataset, predictions, eval_kwargs['id'], split)
 
 
