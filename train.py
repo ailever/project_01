@@ -98,10 +98,6 @@ def train(opt):
     dp_model = torch.nn.DataParallel(model)
     lw_model = LossWrapper(model, opt)
     dp_lw_model = torch.nn.DataParallel(lw_model)
-    
-    debugger = Debugger()
-    debugger(dp_lw_model, logname='model')
-    del debugger
 
     epoch_done = True
     # Assure in training mode

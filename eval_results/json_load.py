@@ -1,7 +1,13 @@
 import json
 import sys
+from debugging import Debugger
 
 obj = json.load(open('eval_results/grnet_val.json'))
+
+debugger = Debugger(attrviewer=True, itercount=100, iterdepth=None)
+debugger(obj, logname='json')
+del debugger
+
 overall = obj['overall']
 imgToEval = obj['imgToEval']
 
