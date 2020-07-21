@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 
 import tutor_opts
-from tutor_utils import DataLoader
+from tutor_loader import DataLoader
 
 import models
 from misc.loss_wrapper import LossWrapper

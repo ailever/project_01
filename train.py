@@ -21,6 +21,7 @@ import eval_utils
 import misc.utils as utils
 from misc.rewards import init_scorer, get_self_critical_reward
 from misc.loss_wrapper import LossWrapper
+from debugging import Debugger
 
 try:
     import tensorboardX as tb
@@ -97,6 +98,10 @@ def train(opt):
     dp_model = torch.nn.DataParallel(model)
     lw_model = LossWrapper(model, opt)
     dp_lw_model = torch.nn.DataParallel(lw_model)
+    
+    debugger = Debugger()
+    debugger(dp_lw_model, logname='model')
+    del debugger
 
     epoch_done = True
     # Assure in training mode

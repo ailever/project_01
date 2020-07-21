@@ -12,7 +12,7 @@ sys.path.append('../')
 from six.moves import cPickle
 import opts
 import models
-from tutor_dataloader import *
+from tutor_loader import *
 from dataloaderraw import *
 import eval_utils
 import argparse

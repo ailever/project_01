@@ -2,11 +2,10 @@ import os, sys
 sys.path.append('../')
 
 import tutor_opts
-from tutor_utils import DataLoader
+from tutor_loader import DataLoader
 
 opts = tutor_opts.parse_opt()
 loader = DataLoader(opts)
-
 
 def loader_attr():
     print('\n* loader dir info')

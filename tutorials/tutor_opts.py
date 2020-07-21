@@ -248,15 +248,15 @@ def add_eval_options(parser):
     parser.add_argument('--image_root', type=str, default='', 
                     help='In case the image paths have to be preprended with a root path to an image folder')
     # For evaluation on MSCOCO images from some split:
-    parser.add_argument('--input_fc_dir', type=str, default='',
+    parser.add_argument('--input_fc_dir', type=str, default='../data/stylized_cocotalk_fc',
                     help='path to the h5file containing the preprocessed dataset')
-    parser.add_argument('--input_att_dir', type=str, default='',
+    parser.add_argument('--input_att_dir', type=str, default='../data/stylized_cocotalk_att',
                     help='path to the h5file containing the preprocessed dataset')
-    parser.add_argument('--input_box_dir', type=str, default='',
+    parser.add_argument('--input_box_dir', type=str, default='../data/cocotalk_box',
                     help='path to the h5file containing the preprocessed dataset')
     parser.add_argument('--input_label_h5', type=str, default='../data/cocotalk_label.h5',
                     help='path to the h5file containing the preprocessed dataset')
-    parser.add_argument('--input_json', type=str, default='', 
+    parser.add_argument('--input_json', type=str, default='../data/cocotalk.json', 
                     help='path to the json file containing additional info and vocab. empty = fetch from model checkpoint.')
     parser.add_argument('--split', type=str, default='test', 
                     help='if running on MSCOCO images, which split to use: val|test|train')
