@@ -18,7 +18,6 @@ import numpy as np
 import misc.utils as utils
 from functools import reduce
 
-
 class CaptionModel(nn.Module):
     def __init__(self):
         super(CaptionModel, self).__init__()

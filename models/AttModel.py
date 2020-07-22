@@ -11,7 +11,6 @@ from torch.nn.utils.rnn import PackedSequence, pack_padded_sequence, pad_packed_
 import misc.utils as utils
 from .CaptionModel import CaptionModel
 
-
 bad_endings = ['a','an','the','in','for','at','of','with','before','after','on','upon','near','to','is','are','am']
 bad_endings += ['the']
 
@@ -164,8 +163,9 @@ class AttModel(CaptionModel):
                     it = fc_feats.new_zeros([beam_size], dtype=torch.long)
 
                 logprobs, state = self.get_logprobs_state(it, tmp_fc_feats, tmp_att_feats, tmp_p_att_feats, tmp_att_masks, state)
-
+            
             self.done_beams[k] = self.beam_search(state, logprobs, tmp_fc_feats, tmp_att_feats, tmp_p_att_feats, tmp_att_masks, opt=opt)
+            
             seq[:, k] = self.done_beams[k][0]['seq'] # the first beam has highest cumulative score
             seqLogprobs[:, k] = self.done_beams[k][0]['logps']
         # return the samples and their log likelihoods
@@ -240,6 +240,7 @@ class AttModel(CaptionModel):
             # sample the next word
             if t == self.seq_length: # skip if we achieve maximum length
                 break
+
             it, sampleLogprobs = self.sample_next_word(logprobs, sample_method, temperature)
 
             # stop when all finished

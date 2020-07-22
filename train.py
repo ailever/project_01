@@ -21,7 +21,6 @@ import eval_utils
 import misc.utils as utils
 from misc.rewards import init_scorer, get_self_critical_reward
 from misc.loss_wrapper import LossWrapper
-from debugging import Debugger
 
 try:
     import tensorboardX as tb
@@ -132,7 +131,7 @@ def train(opt):
         if histories:
             with open(os.path.join(opt.checkpoint_path, 'histories_'+opt.id+'%s.pkl' %(append)), 'wb') as f:
                 utils.pickle_dump(histories, f)
-
+    
     try:
         while True:
             if epoch_done:
@@ -176,6 +175,8 @@ def train(opt):
             tmp = [data['fc_feats'], data['att_feats'], data['labels'], data['masks'], data['att_masks']]
             tmp = [_ if _ is None else _.cuda() for _ in tmp]
             fc_feats, att_feats, labels, masks, att_masks = tmp
+            
+            
             # grnet
             model_out = dp_lw_model(fc_feats, att_feats, labels, masks, att_masks, data['gts'], torch.arange(0, len(data['gts'])), sc_flag)
 
