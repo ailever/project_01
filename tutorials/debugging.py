@@ -2,6 +2,7 @@ import sys, os
 from collections import OrderedDict
 import pprint
 import inspect
+import re
 
 class Attribute:
     def __init__(self, attrviewer=False, itercount=None, iterdepth=None):
@@ -190,21 +191,25 @@ class logtrace:
         self.func = func
     
     def __call__(self, *args, **kwargs):
-        if not os.path.isdir('DebuggingLog'):
-            os.mkdir('DebuggingLog')
+        if not os.path.isdir('.DebuggingLog'):
+            os.mkdir('.DebuggingLog')
             num = 0
-        elif not os.listdir('DebuggingLog/'):
+        elif not os.listdir('.DebuggingLog/'):
             num = 0
         else:
-            loglist = os.listdir('DebuggingLog/')
+            loglist = os.listdir('.DebuggingLog/')
             
             lognumbers = []
             for log in loglist:
-                lognumbers.append(int(log[13:]))
-            num = max(lognumbers) + 1
+                if re.search(r'debugging\.log', log):
+                    lognumbers.append(int(log[13:]))
+            if len(lognumbers) == 0:
+                num = 0
+            else:
+                num = max(lognumbers) + 1
 
         stdout_restore = sys.stdout                                         # Save the current stdout so that we can revert sys.stdou after we complete
-        sys.stdout = open(f'DebuggingLog/debugging.log{num}', 'w')          # Redirect sys.stdout to the file
+        sys.stdout = open(f'.DebuggingLog/debugging.log{num}', 'w')          # Redirect sys.stdout to the file
         
         attrviewer = kwargs['attrviewer']
         itercount = kwargs['itercount']
@@ -251,7 +256,7 @@ class logtrace:
 
         sys.stdout.close()              # Close the file
         sys.stdout = stdout_restore     # Restore sys.stdout to our old saved file handler      
-        print(f'DebuggingLog/debugging.log{num} file was sucessfully created!')
+        print(f'.DebuggingLog/debugging.log{num} file was sucessfully created!')
         return self.func(*args, **kwargs)
 
 
@@ -291,6 +296,7 @@ class Debugger:
     @logtrace
     def logwriter(self, *args, **kwargs):
         pass
+
 
 
 

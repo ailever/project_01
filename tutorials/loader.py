@@ -159,8 +159,8 @@ def main():
     #loader_split_ix()
     #loader_etc()
     
-    #loader_method_get_batch()
-    loader_method_etc()
+    loader_method_get_batch()
+    #loader_method_etc()
 
 if __name__ == "__main__":
     main()

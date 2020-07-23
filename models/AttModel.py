@@ -138,7 +138,6 @@ class AttModel(CaptionModel):
 
         return logprobs, state
 
-
     def _sample_beam(self, fc_feats, att_feats, att_masks=None, opt={}):
         beam_size = opt.get('beam_size', 10)
         batch_size = fc_feats.size(0)
@@ -256,4 +255,3 @@ class AttModel(CaptionModel):
                 break
 
         return seq, seqLogprobs
-

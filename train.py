@@ -22,6 +22,8 @@ import misc.utils as utils
 from misc.rewards import init_scorer, get_self_critical_reward
 from misc.loss_wrapper import LossWrapper
 
+from debugging import Debugger
+
 try:
     import tensorboardX as tb
 except ImportError:
@@ -48,6 +50,7 @@ def train(opt):
     acc_steps = getattr(opt, 'acc_steps', 1)
         
     loader = DataLoader(opt)
+
     opt.vocab_size = loader.vocab_size
     opt.seq_length = loader.seq_length
 
@@ -89,10 +92,10 @@ def train(opt):
         best_val_score = infos.get('best_val_score', None)
 
     opt.vocab = loader.get_vocab()
+    
 
     # grnet
     model = models.setup(opt).cuda()
-    #[print(i) for i in model.named_children()] # dmd
     del opt.vocab
     dp_model = torch.nn.DataParallel(model)
     lw_model = LossWrapper(model, opt)
