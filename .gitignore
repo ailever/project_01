@@ -6,4 +6,4 @@ log/
 option_info/
 eval_results/
 *.pyc
-*DebuggingLog/*
+*.DebuggingLog*
