@@ -1,0 +1,12 @@
+* 1b59330 (tutorial) update
+| * 0a3dc94 (normal) bertaoa [debug] xt : torch.Size([10, 1024])
+| * 3ecb9e5 bertaoa [debug] x : torch.Size([10, 1024])
+| * bbfd589 attmodel [debug] output : torch.Size([10, 1024])
+| * ef2d450 normal
+|/
+| * 0cc0d45 (errortest2) errorcheck
+|/
+| * b568cd6 (private) error
+| * 0c3a7e0 private
+|/
+* 64f3901 (HEAD -> master, origin/master, origin/HEAD) all update
