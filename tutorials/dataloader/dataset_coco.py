@@ -6,6 +6,20 @@ obj = json.load(open('../../data/dataset_coco.json'))
 images = obj['images']      # list
 dataset = obj['dataset']    # str : coco
 
+"""images
+images[0]['filepath']
+images[0]['sentids']
+images[0]['filename']
+images[0]['imgid']
+images[0]['split']
+images[0]['sentences'][0~4]['tokens']
+images[0]['sentences'][0~4]['raw']
+images[0]['sentences'][0~4]['imgid']
+images[0]['sentences'][0~4]['sentid']
+images[0]['cocoid']
+
+"""
+
 for image in images:
     for key, value in image.items():
         if key == 'sentences':
@@ -31,3 +45,4 @@ for image in images:
             print(value)
             print()
     break
+

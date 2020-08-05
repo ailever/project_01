@@ -16,6 +16,7 @@ for ix in ix_to_word:
 
 # images
 count = 0
+print(type(images))
 for image in images:
     if count == 1 : break
     count += 1
@@ -27,4 +28,4 @@ for image in images:
     print()
 
 
-
+print(next(iter(images)))
