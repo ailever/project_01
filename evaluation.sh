@@ -1,6 +1,6 @@
 CUDA_VISIBLE_DEVICES=0 python eval.py \
-	--model log/log_grnet_aoa/model.pth \
-	--infos_path log/log_grnet_aoa/infos_grnet_aoa.pkl \
+	--model log/log_aoanet/model.pth \
+	--infos_path log/log_aoanet/infos_aoanet.pkl \
 	--dump_images 0 \
 	--dump_json 1 \
 	--num_images -1 \

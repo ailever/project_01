@@ -33,6 +33,14 @@ def add_summary_value(writer, key, value, iteration):
         writer.add_scalar(key, value, iteration)
 
 def train(opt):
+    if not os.path.isdir('option_info') : os.mkdir('option_info')
+    with open(f'option_info/{opt.id}.txt', 'a') as log:
+        for i in vars(opt):
+            log.write(f'{i} : ' + str(getattr(opt, i)) + '\n'); print(f'* opt.{i} : {getattr(opt, i)}')
+        log.write('*====================== INFO ======================*')
+    print('*====================== INFO ======================*')
+
+
     # Deal with feature things before anything
     opt.use_fc, opt.use_att = utils.if_use_feat(opt.caption_model)
     if opt.use_box: opt.att_feat_size = opt.att_feat_size + 5

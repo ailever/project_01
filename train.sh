@@ -36,7 +36,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py --id $id \
     --save_checkpoint_every 6000 \
     --language_eval 1 \
     --val_images_use -1 \
-    --max_epochs 3 \
+    --max_epochs 20 \
     --scheduled_sampling_increase_every 5 \
     --scheduled_sampling_max_prob 0.5 \
     --learning_rate_decay_every 3
