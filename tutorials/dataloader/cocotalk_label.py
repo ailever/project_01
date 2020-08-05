@@ -6,6 +6,9 @@ for key in h5_label_file.keys():
     print(f'- {key}')
     print(h5_label_file.get(key)[:])
     print()
+
+print(h5_label_file.get('labels')[0])
+
     
 
 

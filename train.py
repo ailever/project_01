@@ -22,8 +22,6 @@ import misc.utils as utils
 from misc.rewards import init_scorer, get_self_critical_reward
 from misc.loss_wrapper import LossWrapper
 
-from debugging import Debugger
-
 try:
     import tensorboardX as tb
 except ImportError:
@@ -35,14 +33,6 @@ def add_summary_value(writer, key, value, iteration):
         writer.add_scalar(key, value, iteration)
 
 def train(opt):
-    if not os.path.isdir('option_info') : os.mkdir('option_info')
-    with open(f'option_info/grnet_{opt.gs_type}_{opt.nhead}_{opt.nlayer}.txt', 'a') as log:
-        for i in vars(opt):
-            log.write(f'{i} : ' + str(getattr(opt, i)) + '\n'); print(f'* opt.{i} : {getattr(opt, i)}')
-        log.write('*====================== INFO ======================*')
-    print('*====================== INFO ======================*')
-        
-
     # Deal with feature things before anything
     opt.use_fc, opt.use_att = utils.if_use_feat(opt.caption_model)
     if opt.use_box: opt.att_feat_size = opt.att_feat_size + 5
@@ -50,7 +40,6 @@ def train(opt):
     acc_steps = getattr(opt, 'acc_steps', 1)
         
     loader = DataLoader(opt)
-
     opt.vocab_size = loader.vocab_size
     opt.seq_length = loader.seq_length
 
@@ -92,9 +81,6 @@ def train(opt):
         best_val_score = infos.get('best_val_score', None)
 
     opt.vocab = loader.get_vocab()
-    
-
-    # grnet
     model = models.setup(opt).cuda()
     del opt.vocab
     dp_model = torch.nn.DataParallel(model)
@@ -118,6 +104,7 @@ def train(opt):
     if vars(opt).get('start_from', None) is not None and os.path.isfile(os.path.join(opt.start_from,"optimizer.pth")):
         optimizer.load_state_dict(torch.load(os.path.join(opt.start_from, 'optimizer.pth')))
 
+
     def save_checkpoint(model, infos, optimizer, histories=None, append=''):
         if len(append) > 0:
             append = '-' + append
@@ -134,7 +121,7 @@ def train(opt):
         if histories:
             with open(os.path.join(opt.checkpoint_path, 'histories_'+opt.id+'%s.pkl' %(append)), 'wb') as f:
                 utils.pickle_dump(histories, f)
-    
+
     try:
         while True:
             if epoch_done:
@@ -178,9 +165,7 @@ def train(opt):
             tmp = [data['fc_feats'], data['att_feats'], data['labels'], data['masks'], data['att_masks']]
             tmp = [_ if _ is None else _.cuda() for _ in tmp]
             fc_feats, att_feats, labels, masks, att_masks = tmp
-            
-            
-            # grnet
+
             model_out = dp_lw_model(fc_feats, att_feats, labels, masks, att_masks, data['gts'], torch.arange(0, len(data['gts'])), sc_flag)
 
             loss = model_out['loss'].mean()
@@ -188,13 +173,17 @@ def train(opt):
 
             loss_sp.backward()
             if ((iteration+1) % acc_steps == 0):
-                #utils.clip_gradient(optimizer, opt.grad_clip)
+                utils.clip_gradient(optimizer, opt.grad_clip)
                 optimizer.step()
             torch.cuda.synchronize()
             train_loss = loss.item()
             end = time.time()
-            if not sc_flag : print(f"iter {iteration} (epoch {epoch}), train_loss = {train_loss:.3f}, time/batch = {end-start:.3f}")
-            else           : print(f"iter {iteration} (epoch {epoch}), avg_reward = {model_out['reward'].mean():.3f}, time/batch = {end-start:.3f}")
+            if not sc_flag:
+                print("iter {} (epoch {}), train_loss = {:.3f}, time/batch = {:.3f}" \
+                    .format(iteration, epoch, train_loss, end - start))
+            else:
+                print("iter {} (epoch {}), avg_reward = {:.3f}, time/batch = {:.3f}" \
+                    .format(iteration, epoch, model_out['reward'].mean(), end - start))
 
             # Update the iteration and epoch
             iteration += 1
@@ -227,9 +216,11 @@ def train(opt):
             # make evaluation on validation set, and save model
             if (iteration % opt.save_checkpoint_every == 0):
                 # eval model
-                eval_kwargs = {'split': 'val', 'dataset': opt.input_json}
+                eval_kwargs = {'split': 'val',
+                                'dataset': opt.input_json}
                 eval_kwargs.update(vars(opt))
-                val_loss, predictions, lang_stats = eval_utils.eval_split(dp_model, lw_model.crit, loader, eval_kwargs)
+                val_loss, predictions, lang_stats = eval_utils.eval_split(
+                    dp_model, lw_model.crit, loader, eval_kwargs)
 
                 if opt.reduce_on_plateau:
                     if 'CIDEr' in lang_stats:
