@@ -17,15 +17,7 @@ class LossWrapper(torch.nn.Module):
                 sc_flag):
         out = {}
         if not sc_flag:
-            """
-	    [debug] fc_feats : torch.Size([50, 2048])
-	    [debug] att_feats : torch.Size([50, 196, 2048])
-	    [debug] labels : torch.Size([50, 18])
-	    [debug] masks : torch.Size([50, 18])
-	    [debug] self.model(~) : torch.Size([50, 214, 1024])
-            """
-
-            loss = self.crit(self.model(fc_feats, att_feats, labels, att_masks), labels[:,1:], masks[:,1:]);
+            loss = self.crit(self.model(fc_feats, att_feats, labels, att_masks), labels[:,1:], masks[:,1:])
         else:
             self.model.eval()
             with torch.no_grad():
@@ -35,7 +27,7 @@ class LossWrapper(torch.nn.Module):
             gts = [gts[_] for _ in gt_indices.tolist()]
             reward = get_self_critical_reward(greedy_res, gts, gen_result, self.opt)
             reward = torch.from_numpy(reward).float().to(gen_result.device)
-            loss = self.rl_crit(sample_logprobs, gen_result.data, reward); print("* dmd : ", loss)
+            loss = self.rl_crit(sample_logprobs, gen_result.data, reward)
             out['reward'] = reward[:,0].mean()
         out['loss'] = loss
         return out
